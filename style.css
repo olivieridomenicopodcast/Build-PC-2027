@@ -237,3 +237,15 @@ input[type=range] { width: 100%; accent-color: var(--pink); }
 .ver button:disabled { opacity: .5; cursor: wait; }
 @media (max-width: 1000px) { body:has(.mobilebar:not([hidden])) .ver { bottom: 74px; } }
 .foot { padding-bottom: 80px; }
+
+/* sync */
+.syncbtn { border: 1px solid var(--line); background: var(--panel); border-radius: 999px; padding: 7px 13px; font-weight: 600; font-size: .88rem; white-space: nowrap; }
+.syncbtn:hover { border-color: var(--cy); }
+.dlg { border: 1px solid var(--line); border-radius: 18px; background: var(--panel); color: var(--tx); padding: 0; width: min(480px, calc(100vw - 24px)); }
+.dlg::backdrop { background: rgba(5,6,14,.7); backdrop-filter: blur(4px); }
+.dlg-in { padding: 22px; display: grid; gap: 14px; }
+.dlg input { width: 100%; padding: 10px 12px; border-radius: 12px; background: var(--bg); color: var(--tx); border: 1px solid var(--line); font: inherit; }
+.dlg .two { display: grid; grid-template-columns: 1fr 2fr; gap: 10px; }
+.dlg-act { display: flex; flex-wrap: wrap; gap: 8px; }
+.sync-msg { min-height: 1.4em; margin: 0; font-size: .88rem; } .sync-msg.ok { color: var(--gr); } .sync-msg.err { color: var(--rd); } .sync-msg.wait { color: var(--am); }
+@media (max-width: 720px) { .top-in { gap: 6px; } .syncbtn { padding: 7px 10px; font-size: .8rem; } }

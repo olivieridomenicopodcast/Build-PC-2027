@@ -7,7 +7,7 @@
   <meta name="description" content="Riepilogo delle build PC gaming + podcast/video e un builder con pareri su prestazioni, rumore, compatibilità e budget.">
   <meta name="theme-color" content="#0a0b14">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230a0b14'/%3E%3Crect x='14' y='12' width='36' height='40' rx='5' fill='none' stroke='%23ff4fd8' stroke-width='4'/%3E%3Ccircle cx='32' cy='28' r='8' fill='none' stroke='%2322d3ee' stroke-width='4'/%3E%3Crect x='22' y='42' width='20' height='4' rx='2' fill='%2334d399'/%3E%3C/svg%3E">
-  <link rel="stylesheet" href="style.css?v=2">
+  <link rel="stylesheet" href="style.css?v=3">
 </head>
 <body>
   <div class="rgb-bar" aria-hidden="true"></div>
@@ -23,6 +23,7 @@
         <button role="tab" data-tab="builder">Builder</button>
         <button role="tab" data-tab="mercato">Prezzi &amp; mercato</button>
       </nav>
+      <button class="syncbtn" data-sync="open" title="Sincronizza con GitHub">☁ Sync</button>
     </div>
   </header>
 
@@ -39,6 +40,26 @@
     <section id="view-mercato" class="view" role="tabpanel"></section>
   </main>
 
+  <dialog id="sync-dlg" class="dlg">
+    <form method="dialog" class="dlg-in" onsubmit="return false">
+      <h3>☁ Sync con GitHub</h3>
+      <p class="muted small">Salva la tua build (componenti, prezzi, budget, usi) in un file del repo e riprendila da qualsiasi dispositivo. Il token resta solo in questo browser.</p>
+      <label class="field"><span>Token GitHub (Contents: read &amp; write)</span><input id="sync-token" type="password" autocomplete="off" placeholder="github_pat_…"></label>
+      <label class="field"><span>Repository</span><input id="sync-repo" type="text" autocomplete="off"></label>
+      <div class="two">
+        <label class="field"><span>Branch</span><input id="sync-branch" type="text" autocomplete="off"></label>
+        <label class="field"><span>File</span><input id="sync-path" type="text" autocomplete="off"></label>
+      </div>
+      <p id="sync-msg" class="sync-msg" role="status"></p>
+      <div class="dlg-act">
+        <button type="button" class="btn" data-sync="pull">⬇ Pull</button>
+        <button type="button" class="btn primary" data-sync="push">⬆ Push</button>
+        <button type="button" class="btn" data-sync="forget">Dimentica token</button>
+        <button type="button" class="btn" data-sync="close">Chiudi</button>
+      </div>
+    </form>
+  </dialog>
+
   <div id="ver" class="ver"></div>
 
   <div id="mobilebar" class="mobilebar" hidden></div>
@@ -47,10 +68,11 @@
     <p>Dati dai PDF «Riepilogo della consulenza» (27 ott 2026) e «Build PC gaming + lavoro» (15 ott 2026). I punteggi sono stime orientative del builder, non benchmark: <strong>ricontrolla i prezzi prima di acquistare</strong> (sono vecchi di 2-4 settimane e il Black Friday è il 27 novembre).</p>
   </footer>
 
-  <script src="version.js?v=2"></script>
-  <script src="data.js?v=2"></script>
-  <script src="engine.js?v=2"></script>
-  <script src="charts.js?v=2"></script>
-  <script src="app.js?v=2"></script>
+  <script src="version.js?v=3"></script>
+  <script src="data.js?v=3"></script>
+  <script src="engine.js?v=3"></script>
+  <script src="charts.js?v=3"></script>
+  <script src="app.js?v=3"></script>
+  <script src="sync.js?v=3"></script>
 </body>
 </html>
