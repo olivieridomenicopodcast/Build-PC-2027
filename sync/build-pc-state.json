@@ -1,0 +1,35 @@
+{
+  "app": "build-pc-2027",
+  "build": 7,
+  "savedAt": "2026-11-11T09:00:45.293Z",
+  "state": {
+    "build": {
+      "cpu": "r7-9700x",
+      "ram": "ram32",
+      "ssd": "ssd2",
+      "mobo": "b850-atx",
+      "psu": "psu850",
+      "cooler": "pa120",
+      "case": "north",
+      "gpu": "rx9070"
+    },
+    "mode": "A",
+    "budget": 3450,
+    "uses": [
+      "fhd",
+      "audio",
+      "video",
+      "future",
+      "dev"
+    ]
+  },
+  "dual": {
+    "checked": {},
+    "names": {
+      "new": "PC-NUOVO",
+      "old": "PC-VECCHIO",
+      "share": "Condivisione",
+      "drive": "Z"
+    }
+  }
+}
