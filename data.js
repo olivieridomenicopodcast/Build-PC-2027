@@ -18,6 +18,9 @@ const CATS = [
 
 const ITEMS = {
   cpu: [
+    { id: 'r5-9600', name: 'Ryzen 5 9600', brand: 'AMD', socket: 'AM5', cores: 6, thr: 12, g: 77, mt: 50, power: 100, vrm: 2,
+      p: 165, v: 'S', spec: '6 core · AM5 · 65 W',
+      note: 'La versione da 65 W del 9600X: 6 core, poche centinaia di MHz in meno. Buona CPU d\'ingresso, ma con una GPU forte è la parte che limita; per montaggio video e audio pesante hai meno margine di un 8 core.' },
     { id: 'r5-9600x', name: 'Ryzen 5 9600X', brand: 'AMD', socket: 'AM5', cores: 6, thr: 12, g: 80, mt: 52, power: 130, vrm: 2,
       p: 188.6, v: 'V', spec: '6 core · AM5 · 105 W',
       note: 'Il best buy d\'ingresso: 6 core Zen 5 velocissimi nei giochi, soprattutto in Full HD. Per montaggio video e progetti audio pesanti hai meno margine dei fratelli maggiori.' },
@@ -75,6 +78,9 @@ const ITEMS = {
     { id: 'asus-b850-plus', name: 'ASUS PRIME B850-PLUS-CSM', socket: 'AM5', form: 'ATX', wifi: false, vrm: 4,
       p: 170, v: 'S', spec: 'AM5 · ATX · DDR5 · senza Wi-Fi',
       note: 'B850 ATX solida di ASUS, ma senza Wi-Fi: se hai il PC in Ethernet (come nella postazione dual PC) non ti serve altro.' },
+    { id: 'b650-eagle', name: 'Gigabyte B650 Eagle AX', socket: 'AM5', form: 'ATX', wifi: true, vrm: 3,
+      p: 150, v: 'S', spec: 'AM5 · ATX · Wi-Fi 6E · DDR5',
+      note: 'B650 ATX con Wi-Fi: scheda onesta per CPU fino a 8 core. Niente PCIe 5 per la scheda video, che con una RX 9070 o una RTX 5070 non serve.' },
     { id: 'b850-atx', name: 'B850 ATX con Wi-Fi (MSI/Gigabyte)', socket: 'AM5', form: 'ATX', wifi: true, vrm: 4,
       p: 165, v: 'S', spec: 'AM5 · ATX · Wi-Fi · PCIe 5',
       note: 'La scelta della build Niky: VRM robusti, Wi-Fi e più slot. Per 40 € in più della B650 ti compri più tranquillità e margine di upgrade.' },
@@ -152,6 +158,9 @@ const ITEMS = {
     { id: 'pcs-spectrum', name: 'PCS Spectrum II Compact ARGB Bianco', forms: ['ATX', 'mATX'], maxCooler: 155, rad: 360, air: 85, silent: 45, rgb: true,
       p: 90, v: 'S', spec: 'ATX compatto · RGB · frontale a rete',
       note: 'Compatto (405 × 210 × 360 mm), frontale a rete e ventole ARGB: l\'aria passa bene, ma il rumore anche. Per le registrazioni non è la scelta migliore.' },
+    { id: 'mb520', name: 'Cooler Master MasterBox 520 ARGB', forms: ['ATX', 'mATX'], maxCooler: 165, rad: 360, air: 70, silent: 50, rgb: true,
+      p: 80, v: 'S', spec: 'ATX · RGB · 3 ventole ARGB frontali',
+      note: 'Mid-tower ATX economico con tre ventole ARGB frontali: bella resa a un prezzo basso. Per il silenzio non è il migliore.' },
     { id: 'north', name: 'Fractal Design North', forms: ['ATX', 'mATX'], maxCooler: 170, rad: 360, air: 72, silent: 75, rgb: false,
       p: 140, v: 'S', spec: 'ATX · legno/acciaio · silenzioso',
       note: 'Il più silenzioso e bello da vedere, ma senza RGB: se il tuo PC deve brillare, questo no.' },

@@ -22,6 +22,9 @@ const CMP_SEEDS = [
   { id: 'c-pcs', name: 'PCSpecialist · 9700X + RX 9070', price: 2944, win: true, asm: true,
     note: 'Prezzo IVA inclusa (2.413,11 € + IVA). Corsair RMx 850 W · LS-360 AIO · PCS Spectrum II Compact · Windows 11 Home · 2 strisce LED (+20 €) e scheda Wi-Fi inclusi. Taglio dell\'SSD non visibile negli screenshot: assunto 1 TB.',
     build: { cpu: 'r7-9700x', gpu: 'rx9070', mobo: 'asus-b850-plus', ram: 'ram32', ssd: 'ssd1', psu: 'rmx850', cooler: 'aio360', case: 'pcs-spectrum' } },
+  { id: 'c-afk', name: 'AFK Store · Whale AMD (9600 + RTX 5070)', price: 2469, win: true, asm: true,
+    note: 'Ryzen 5 9600 · RTX 5070 Ventus X2 OC 12 GB · 32 GB DDR5 · Adata Legend 860 1 TB · AIO MSI MAG Coreliquid A13 360 · Gigabyte B650 Eagle AX · UD750GM 750 W Gold · MasterBox 520 ARGB · Windows 11 Pro OEM + Office 2019 Pro Plus OEM.',
+    build: { cpu: 'r5-9600', gpu: 'rtx5070', mobo: 'b650-eagle', ram: 'ram32', ssd: 'ssd1', psu: 'psu750', cooler: 'aio360', case: 'mb520' } },
 ];
 CMP_SEEDS.forEach(s => { if (!cmp.seeded.includes(s.id)) { cmp.cands.push(s); cmp.seeded.push(s.id); } });
 const cmpSave = () => { try { localStorage.setItem(CMP_KEY, JSON.stringify({ ref: cmp.ref, refName: cmp.refName, winVal: cmp.winVal, asmVal: cmp.asmVal, useWin: cmp.useWin, useAsm: cmp.useAsm, sel: cmp.sel, cands: cmp.cands, seeded: cmp.seeded })); } catch (e) { /* ignore */ } };
@@ -86,7 +89,7 @@ function cmpNotes(r, c) {
   if (rr.gb !== nr.gb) add(nr.gb > rr.gb ? 'up' : 'dn', `RAM ${nr.gb} GB contro ${rr.gb} GB.`);
   if (rs.tb !== ns.tb) add(ns.tb >= rs.tb ? 'up' : (ENGINE_OPTS.ext ? 'eq' : 'dn'), `SSD ${ns.tb} TB contro ${rs.tb} TB: ${ns.tb < rs.tb ? (ENGINE_OPTS.ext ? 'archivi su HDD esterni, quindi 1 TB basta e lasci l\'SSD libero' : 'meno spazio per progetti audio e video') : 'più spazio, che con i tuoi HDD esterni usi poco'}.`);
   if (rp.id !== np.id) add(np.w >= rp.w && np.qual === rp.qual ? 'eq' : 'dn', `Alimentatore ${np.w} W ${np.qual} contro ${rp.w} W ${rp.qual}${np.qual === 'Bronze' && rp.qual === 'Gold' ? ': scendi di qualità e margine proprio dove conviene non risparmiare (marca da verificare)' : np.w < rp.w ? ': meno margine per cambiare scheda in futuro' : ''}.`);
-  if (rk.id !== nk.id) add(nk.type === 'liquido' && rk.type === 'aria' ? 'eq' : 'eq', `Dissipatore ${nk.name} contro ${rk.name}${nk.type === 'liquido' && rk.type === 'aria' ? ': raffredda di più, ma un 3D V-Cache scalda poco e la pompa aggiunge rumore (conta se registri)' : ''}.`);
+  if (rk.id !== nk.id) add(nk.type === 'liquido' && rk.type === 'aria' ? 'eq' : 'eq', `Dissipatore ${nk.name} contro ${rk.name}${nk.type === 'liquido' && rk.type === 'aria' ? ': raffredda di più, ma con questa CPU un buon dissipatore ad aria basta e la pompa aggiunge rumore (conta se registri)' : ''}.`);
   if (rcs.id !== ncs.id) add(ncs.silent >= rcs.silent ? 'eq' : 'dn', `Case ${ncs.name} contro ${rcs.name}: ${ncs.rgb && !rcs.rgb ? 'ha l\'RGB che volevi' : ''}${ncs.silent < rcs.silent ? '; è meno silenzioso, e per le registrazioni conta' : ''}.`.replace(': ;', ':').replace('; è', ': è'));
   return out;
 }
