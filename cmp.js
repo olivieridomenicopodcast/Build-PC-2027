@@ -26,7 +26,7 @@ const CMP_SEEDS = [
     note: 'Ryzen 5 9600 · RTX 5070 Ventus X2 OC 12 GB · 32 GB DDR5 · Adata Legend 860 1 TB · AIO MSI MAG Coreliquid A13 360 · Gigabyte B650 Eagle AX · UD750GM 750 W Gold · MasterBox 520 ARGB · Windows 11 Pro OEM + Office 2019 Pro Plus OEM.',
     build: { cpu: 'r5-9600', gpu: 'rtx5070', mobo: 'b650-eagle', ram: 'ram32', ssd: 'ssd1', psu: 'psu750', cooler: 'aio360', case: 'mb520' } },
   { id: 'c-v8g', name: 'Egemone V8 + alimentatore 850 W Gold', price: 2639, win: true, asm: true,
-    note: 'Come la V8 (2.599 €) ma con Gigabyte UD850GM 850 W Gold ATX 3.1 al posto dell\'MSI A750BN: +40 € confermati dal negozio. 7800X3D · RX 9070 XT · 32 GB · SSD 1 TB · AIO MSI 360 · Antec C3 · Windows 11 Pro.',
+    note: 'Come la V8 (2.599 €) ma con Gigabyte UD850GM PG5 V2 (850 W Gold ATX 3.1) al posto dell\'MSI A750BN: +40 € confermati dal negozio. 7800X3D · RX 9070 XT · 32 GB · SSD 1 TB · AIO MSI 360 · Antec C3 · Windows 11 Pro.',
     build: { cpu: 'r7-7800x3d', gpu: 'rx9070xt', mobo: 'b850-atx', ram: 'ram32', ssd: 'ssd1', psu: 'psu850', cooler: 'aio360', case: 'antec' } },
 ];
 /* aggiorna la nota della V8 salvata prima che si conoscesse la marca dell'alimentatore */

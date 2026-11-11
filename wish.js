@@ -10,13 +10,15 @@ const WISH_STATUS = {
 const wish = {
   items: [
     { id: 'w-v8', title: 'EGEMONE V8 · Ryzen 7 7800X3D, RX 9070 XT 16 GB, 32 GB DDR5-6000', shop: 'PJ DIGITALSTORE', url: 'https://share.google/atLAizxenldQCTldB',
-      price: 2599, status: 'eval', cmpId: 'c-v8', added: '2026-11-11',
+      price: 2639, status: 'fav', cmpId: 'c-v8g', added: '2026-11-11', rev: 2,
       note: 'Arriva con Windows 11 Pro e già montato. Alimentatore: MSI MAG A750BN 750 W Bronze. Da chiedere: passaggio al Gigabyte UD850GM 850 W Gold (come nella V2) e relativo supplemento.' },
   ],
   edit: null,
 };
 try { const d = JSON.parse(localStorage.getItem(WISH_KEY) || 'null'); if (d && Array.isArray(d.items)) wish.items = d.items; } catch (e) { /* ignore */ }
-wish.items.forEach(x => { if (x.id === 'w-v8' && /marca e modello dell/.test(x.note || '')) x.note = 'Alimentatore: MSI MAG A750BN 750 W Bronze. Da chiedere: passaggio al Gigabyte UD850GM 850 W Gold (come nella V2) e relativo supplemento.'; });
+/* aggiorna la voce della V8 salvata prima della conferma dell'alimentatore (una sola volta) */
+wish.items.forEach(x => { if (x.id === 'w-v8' && !x.rev) { x.price = 2639; x.status = x.status === 'eval' ? 'fav' : x.status; x.cmpId = 'c-v8g'; x.rev = 2;
+  x.note = 'Con alimentatore Gigabyte UD850GM PG5 V2, 850 W Gold ATX 3.1 (+40 € sul prezzo base di 2.599 €, confermato dal negozio). Arriva con Windows 11 Pro e già montato. Da chiedere ancora: modello SSD, latenza RAM, licenza Windows OEM o retail, garanzia, tempi di consegna.'; wishSave(); } });
 const wishSave = () => { try { localStorage.setItem(WISH_KEY, JSON.stringify({ items: wish.items })); } catch (e) { /* ignore */ } };
 const wishData = () => ({ items: wish.items });
 

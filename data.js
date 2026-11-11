@@ -124,7 +124,7 @@ const ITEMS = {
       note: 'Alimentatore di una marca nota (MSI), ma della serie economica: 80+ Bronze, da quanto mi risulta non modulare. Regge una 9070 XT, ma al minimo consigliato da AMD e senza margine. Chiedi se è la versione con connettore 12V-2x6 / ATX 3.x e se ha abbastanza cavi PCIe da 8 pin per la scheda.' },
     { id: 'rmx850', name: 'Corsair RMx 850 W Gold ATX 3.1 (modulare)', w: 850, qual: 'Gold', p: 150, v: 'S', spec: '850 W · Gold · modulare · ATX 3.1',
       note: 'Un alimentatore di marca nota e di buona qualità: è uno dei pezzi in cui conviene non risparmiare.' },
-    { id: 'psu850', name: '850 W 80+ Gold ATX 3.1', w: 850, qual: 'Gold', p: 120, v: 'S', spec: '850 W · Gold · ATX 3.1',
+    { id: 'psu850', name: '850 W 80+ Gold ATX 3.1', w: 850, qual: 'Gold', p: 120, v: 'S', spec: '850 W · Gold · ATX 3.1 (es. Gigabyte UD850GM)',
       note: 'La scelta della consulenza: per ~20 € in più hai margine per cambiare GPU in futuro senza cambiare alimentatore.' },
     { id: 'psu1000', name: '1000 W 80+ Gold ATX 3.1', w: 1000, qual: 'Gold', p: 170, v: 'S', spec: '1000 W · Gold · ATX 3.1',
       note: 'Per GPU top o per dormire sonni tranquilli. Con una 9070 XT è sovradimensionato.' },
