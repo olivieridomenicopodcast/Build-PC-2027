@@ -7,7 +7,7 @@ const cmp = {
   ref: { cpu: 'r7-9700x', gpu: 'rx9070', mobo: 'b850-atx', ram: 'ram32', ssd: 'ssd2', psu: 'psu850', cooler: 'pa120', case: 'north' },
   refName: 'La mia build (dai PDF)',
   winVal: 100, asmVal: 80, useWin: true, useAsm: true,
-  sel: 'c-v8', edit: null,
+  sel: 'c-v8', edit: null, seeded: ['c-v2', 'c-v8'],
   cands: [
     { id: 'c-v2', name: 'Egemone V2 Evo', price: 2490, win: true, asm: true, note: 'Gigabyte UD850GM 850 W Gold · MSI MAG A13 360 mm · Cougar FV150 RGB',
       build: { cpu: 'r7-7800x3d', gpu: 'rtx5070', mobo: 'b850-atx', ram: 'ram32', ssd: 'ssd1', psu: 'psu850', cooler: 'aio360', case: 'fv150' } },
@@ -17,8 +17,16 @@ const cmp = {
 };
 try { const d = JSON.parse(localStorage.getItem(CMP_KEY) || 'null'); if (d) Object.assign(cmp, d); } catch (e) { /* ignore */ }
 cmp.edit = null;
-const cmpSave = () => { try { localStorage.setItem(CMP_KEY, JSON.stringify({ ref: cmp.ref, refName: cmp.refName, winVal: cmp.winVal, asmVal: cmp.asmVal, useWin: cmp.useWin, useAsm: cmp.useAsm, sel: cmp.sel, cands: cmp.cands })); } catch (e) { /* ignore */ } };
-const cmpData = () => ({ ref: cmp.ref, refName: cmp.refName, winVal: cmp.winVal, asmVal: cmp.asmVal, useWin: cmp.useWin, useAsm: cmp.useAsm, cands: cmp.cands });
+/* configurazioni predefinite aggiunte nelle nuove build: compaiono una sola volta, anche se esiste già un salvataggio */
+const CMP_SEEDS = [
+  { id: 'c-pcs', name: 'PCSpecialist · 9700X + RX 9070', price: 2944, win: true, asm: true,
+    note: 'Prezzo IVA inclusa (2.413,11 € + IVA). Corsair RMx 850 W · LS-360 AIO · PCS Spectrum II Compact · Windows 11 Home · 2 strisce LED (+20 €) e scheda Wi-Fi inclusi. Taglio dell\'SSD non visibile negli screenshot: assunto 1 TB.',
+    build: { cpu: 'r7-9700x', gpu: 'rx9070', mobo: 'asus-b850-plus', ram: 'ram32', ssd: 'ssd1', psu: 'rmx850', cooler: 'aio360', case: 'pcs-spectrum' } },
+];
+CMP_SEEDS.forEach(s => { if (!cmp.seeded.includes(s.id)) { cmp.cands.push(s); cmp.seeded.push(s.id); } });
+const cmpSave = () => { try { localStorage.setItem(CMP_KEY, JSON.stringify({ ref: cmp.ref, refName: cmp.refName, winVal: cmp.winVal, asmVal: cmp.asmVal, useWin: cmp.useWin, useAsm: cmp.useAsm, sel: cmp.sel, cands: cmp.cands, seeded: cmp.seeded })); } catch (e) { /* ignore */ } };
+cmpSave();
+const cmpData = () => ({ ref: cmp.ref, refName: cmp.refName, winVal: cmp.winVal, asmVal: cmp.asmVal, useWin: cmp.useWin, useAsm: cmp.useAsm, cands: cmp.cands, seeded: cmp.seeded });
 
 /* metrica per decidere "meglio/peggio" per categoria */
 const CMP_METRIC = {
