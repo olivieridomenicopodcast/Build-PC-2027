@@ -11,11 +11,12 @@ const wish = {
   items: [
     { id: 'w-v8', title: 'EGEMONE V8 · Ryzen 7 7800X3D, RX 9070 XT 16 GB, 32 GB DDR5-6000', shop: 'PJ DIGITALSTORE', url: 'https://share.google/atLAizxenldQCTldB',
       price: 2599, status: 'eval', cmpId: 'c-v8', added: '2026-11-11',
-      note: 'Arriva con Windows 11 Pro e già montato. Da chiedere: marca e modello dell\'alimentatore (750 W Bronze) e se si può passare a un 850 W Gold.' },
+      note: 'Arriva con Windows 11 Pro e già montato. Alimentatore: MSI MAG A750BN 750 W Bronze. Da chiedere: passaggio al Gigabyte UD850GM 850 W Gold (come nella V2) e relativo supplemento.' },
   ],
   edit: null,
 };
 try { const d = JSON.parse(localStorage.getItem(WISH_KEY) || 'null'); if (d && Array.isArray(d.items)) wish.items = d.items; } catch (e) { /* ignore */ }
+wish.items.forEach(x => { if (x.id === 'w-v8' && /marca e modello dell/.test(x.note || '')) x.note = 'Alimentatore: MSI MAG A750BN 750 W Bronze. Da chiedere: passaggio al Gigabyte UD850GM 850 W Gold (come nella V2) e relativo supplemento.'; });
 const wishSave = () => { try { localStorage.setItem(WISH_KEY, JSON.stringify({ items: wish.items })); } catch (e) { /* ignore */ } };
 const wishData = () => ({ items: wish.items });
 

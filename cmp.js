@@ -11,7 +11,7 @@ const cmp = {
   cands: [
     { id: 'c-v2', name: 'Egemone V2 Evo', price: 2490, win: true, asm: true, note: 'Gigabyte UD850GM 850 W Gold · MSI MAG A13 360 mm · Cougar FV150 RGB',
       build: { cpu: 'r7-7800x3d', gpu: 'rtx5070', mobo: 'b850-atx', ram: 'ram32', ssd: 'ssd1', psu: 'psu850', cooler: 'aio360', case: 'fv150' } },
-    { id: 'c-v8', name: 'Egemone V8', price: 2599, win: true, asm: true, note: 'Alimentatore 750 W Bronze (marca non indicata) · MSI MAG A13 360 mm · Antec C3',
+    { id: 'c-v8', name: 'Egemone V8', price: 2599, win: true, asm: true, note: 'Alimentatore MSI MAG A750BN 750 W Bronze · MSI MAG A13 360 mm · Antec C3',
       build: { cpu: 'r7-7800x3d', gpu: 'rx9070xt', mobo: 'b850-atx', ram: 'ram32', ssd: 'ssd1', psu: 'psu750b', cooler: 'aio360', case: 'antec' } },
   ],
 };
@@ -26,6 +26,8 @@ const CMP_SEEDS = [
     note: 'Ryzen 5 9600 · RTX 5070 Ventus X2 OC 12 GB · 32 GB DDR5 · Adata Legend 860 1 TB · AIO MSI MAG Coreliquid A13 360 · Gigabyte B650 Eagle AX · UD750GM 750 W Gold · MasterBox 520 ARGB · Windows 11 Pro OEM + Office 2019 Pro Plus OEM.',
     build: { cpu: 'r5-9600', gpu: 'rtx5070', mobo: 'b650-eagle', ram: 'ram32', ssd: 'ssd1', psu: 'psu750', cooler: 'aio360', case: 'mb520' } },
 ];
+/* aggiorna la nota della V8 salvata prima che si conoscesse la marca dell'alimentatore */
+cmp.cands.forEach(x => { if (x.id === 'c-v8' && /marca non indicata/.test(x.note || '')) x.note = 'Alimentatore MSI MAG A750BN 750 W Bronze · MSI MAG A13 360 mm · Antec C3'; });
 CMP_SEEDS.forEach(s => { if (!cmp.seeded.includes(s.id)) { cmp.cands.push(s); cmp.seeded.push(s.id); } });
 const cmpSave = () => { try { localStorage.setItem(CMP_KEY, JSON.stringify({ ref: cmp.ref, refName: cmp.refName, winVal: cmp.winVal, asmVal: cmp.asmVal, useWin: cmp.useWin, useAsm: cmp.useAsm, sel: cmp.sel, cands: cmp.cands, seeded: cmp.seeded })); } catch (e) { /* ignore */ } };
 cmpSave();

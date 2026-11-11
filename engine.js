@@ -117,7 +117,7 @@ function evaluate(build, mode, budget, uses) {
     add('warn', 'VRAM al limite', 'Con 12 GB oggi si gioca bene, ma nei prossimi anni (GTA 6 incluso) si rischia di dover abbassare le texture. I 16 GB sono la scelta più sicura.');
 
   if (p.qual === 'Bronze' && g.tdp >= 250)
-    add('warn', 'Alimentatore Bronze con scheda potente', `Un ${p.w} W Bronze con una scheda da ${g.tdp} W lavora vicino al limite, con più calore e rumore, e la qualità varia molto da marca a marca. Con una scheda così è meglio un Gold di marca nota.`);
+    add('warn', 'Alimentatore Bronze con scheda potente', `Un ${p.w} W Bronze con una scheda da ${g.tdp} W lavora vicino al limite, con più calore e rumore. Se è di marca nota va bene, ma con una scheda così un Gold con più margine è preferibile.`);
 
   // sbilanciamenti
   if (g.idx >= 80 && c.g < 80)
