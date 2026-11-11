@@ -16,11 +16,12 @@ const wish = {
   edit: null,
 };
 try { const d = JSON.parse(localStorage.getItem(WISH_KEY) || 'null'); if (d && Array.isArray(d.items)) wish.items = d.items; } catch (e) { /* ignore */ }
+
+const wishSave = () => { try { localStorage.setItem(WISH_KEY, JSON.stringify({ items: wish.items })); } catch (e) { /* ignore */ } };
+const wishData = () => ({ items: wish.items });
 /* aggiorna la voce della V8 salvata prima della conferma dell'alimentatore (una sola volta) */
 wish.items.forEach(x => { if (x.id === 'w-v8' && !x.rev) { x.price = 2639; x.status = x.status === 'eval' ? 'fav' : x.status; x.cmpId = 'c-v8g'; x.rev = 2;
   x.note = 'Con alimentatore Gigabyte UD850GM PG5 V2, 850 W Gold ATX 3.1 (+40 € sul prezzo base di 2.599 €, confermato dal negozio). Arriva con Windows 11 Pro e già montato. Da chiedere ancora: modello SSD, latenza RAM, licenza Windows OEM o retail, garanzia, tempi di consegna.'; wishSave(); } });
-const wishSave = () => { try { localStorage.setItem(WISH_KEY, JSON.stringify({ items: wish.items })); } catch (e) { /* ignore */ } };
-const wishData = () => ({ items: wish.items });
 
 function wishHost(url) { try { return new URL(url).hostname.replace(/^www\./, ''); } catch (e) { return ''; } }
 function wishSafeUrl(u) { try { const x = new URL(u.trim()); return /^https?:$/.test(x.protocol) ? x.href : ''; } catch (e) { return ''; } }
