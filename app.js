@@ -442,7 +442,13 @@ function renderVer() {
     ${msg ? `<span class="ver-m ${s}">${msg}</span>` : ''}
     ${s === 'new' ? '<button data-action="reload">Aggiorna ora</button>' : `<button data-action="check-update" ${s === 'checking' ? 'disabled' : ''}>↻ Cerca aggiornamenti</button>`}`;
 }
-async function checkUpdate() {
+async function hardReload() {
+  saveState();
+  try { (await navigator.serviceWorker?.getRegistrations?.() || []).forEach(r => r.unregister()); } catch (e) { /* ignore */ }
+  try { (await caches?.keys?.() || []).forEach(k => caches.delete(k)); } catch (e) { /* ignore */ }
+  location.href = location.pathname + '?v=' + ver.latest + '&t=' + Date.now() + location.hash;
+}
+async function checkUpdate(manual = false) {
   ver.status = 'checking'; renderVer();
   try {
     const r = await fetch('version.js?t=' + Date.now(), { cache: 'no-store' });
@@ -452,12 +458,13 @@ async function checkUpdate() {
     ver.status = ver.latest > APP_BUILD ? 'new' : 'ok';
   } catch (e) { ver.status = 'err'; }
   renderVer();
+  if (manual && ver.status === 'new') setTimeout(hardReload, 700);
 }
 document.addEventListener('click', e => {
   const t = e.target.closest('[data-action=check-update],[data-action=reload]');
   if (!t) return;
-  if (t.dataset.action === 'reload') { saveState(); location.href = location.pathname + '?v=' + ver.latest + location.hash; }
-  else checkUpdate();
+  if (t.dataset.action === 'reload') hardReload();
+  else checkUpdate(true);
 });
 renderVer();
 checkUpdate();
