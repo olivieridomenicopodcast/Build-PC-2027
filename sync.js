@@ -82,8 +82,9 @@ async function syncPull() {
     state.profile = Object.keys(PROFILES).find(k => PROFILES[k].uses.join() === state.uses.join()) || 'custom';
     if (typeof s.ext === 'boolean') { state.ext = s.ext; ENGINE_OPTS.ext = s.ext; }
     if (rem.data.cmp && Array.isArray(rem.data.cmp.cands)) { Object.assign(cmp, rem.data.cmp); cmp.edit = null; cmpSave(); }
+    if (rem.data.wish && Array.isArray(rem.data.wish.items)) { wish.items = rem.data.wish.items; wish.edit = null; wishSave(); }
     if (rem.data.dual) { dual.checked = rem.data.dual.checked || {}; Object.assign(dual.names, rem.data.dual.names || {}); dualSave(); }
-    saveState(); showTab(['dual', 'cmp'].includes(state.tab) ? state.tab : 'builder', false);
+    saveState(); showTab(['dual', 'cmp', 'wish'].includes(state.tab) ? state.tab : 'builder', false);
     syncSetMsg('Pull completato ✓ (salvato il ' + new Date(rem.data.savedAt).toLocaleString('it-IT') + ')', 'ok');
   } catch (e) { syncSetMsg(e.message, 'err'); }
 }
@@ -96,7 +97,7 @@ async function syncPush() {
     const rem = await syncRemote();
     const payload = { app: 'build-pc-2027', build: APP_BUILD, savedAt: new Date().toISOString(),
       state: { build: state.build, mode: state.mode, budget: state.budget, uses: state.uses, ext: state.ext },
-      cmp: cmpData(),
+      cmp: cmpData(), wish: wishData(),
       dual: { checked: dual.checked, names: dual.names } };
     const body = { message: 'Sync build PC dal browser', branch: syncCfg.branch, content: b64enc(JSON.stringify(payload, null, 2) + '\n') };
     if (rem) body.sha = rem.sha;

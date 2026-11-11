@@ -7,7 +7,7 @@ const esc = s => String(s).replace(/[&<>"]/g, ch => ({ '&': '&amp;', '<': '&lt;'
 const state = {
   tab: 'riepilogo',
   build: { ...PRESETS.find(p => p.id === 'b9070').build },
-  mode: 'B',
+  mode: 'A',           // prezzi reali del 27 ottobre (la fonte più recente)
   budget: 2500,
   profile: 'niky',
   uses: [...PROFILES.niky.uses],
@@ -48,7 +48,7 @@ function loadState() {
   const u = (p.get('u') || '').split(',').filter(k => USES.some(x => x.key === k));
   if (u.length) { state.uses = u; state.profile = Object.keys(PROFILES).find(k => PROFILES[k].uses.join() === u.join()) || 'custom'; }
   if (['0', '1'].includes(p.get('x'))) state.ext = p.get('x') === '1';
-  if (['riepilogo', 'builder', 'cmp', 'mercato', 'dual'].includes(p.get('t'))) state.tab = p.get('t');
+  if (['riepilogo', 'builder', 'cmp', 'wish', 'mercato', 'dual'].includes(p.get('t'))) state.tab = p.get('t');
 }
 
 /* ============================================================
@@ -373,6 +373,7 @@ function showTab(t, scroll = true) {
   if (t === 'mercato') renderMercato();
   if (t === 'dual') renderDual();
   if (t === 'cmp') renderCmp();
+  if (t === 'wish') renderWish();
   if (scroll) window.scrollTo({ top: 0 });
   saveState();
 }
@@ -411,7 +412,7 @@ document.addEventListener('click', e => {
     case 'ext':
       state.ext = !state.ext; ENGINE_OPTS.ext = state.ext; renderBuilder(); saveState(); break;
     case 'reset':
-      state.build = { ...PRESETS.find(p => p.id === 'b9070').build }; state.mode = 'B'; state.budget = 2500; setProfile('niky');
+      state.build = { ...PRESETS.find(p => p.id === 'b9070').build }; state.mode = 'A'; state.budget = 2500; setProfile('niky');
       renderBuilder(); saveState(); break;
     case 'copy': {
       saveState();
