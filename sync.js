@@ -62,7 +62,8 @@ async function syncPull() {
     const u = (s.uses || []).filter(k => USES.some(x => x.key === k));
     if (u.length) state.uses = u;
     state.profile = Object.keys(PROFILES).find(k => PROFILES[k].uses.join() === state.uses.join()) || 'custom';
-    saveState(); showTab('builder', false);
+    if (rem.data.dual) { dual.checked = rem.data.dual.checked || {}; Object.assign(dual.names, rem.data.dual.names || {}); dualSave(); }
+    saveState(); showTab(state.tab === 'dual' ? 'dual' : 'builder', false);
     syncSetMsg('Pull completato ✓ (salvato il ' + new Date(rem.data.savedAt).toLocaleString('it-IT') + ')', 'ok');
   } catch (e) { syncSetMsg(e.message, 'err'); }
 }
@@ -73,7 +74,8 @@ async function syncPush() {
   try {
     const rem = await syncRemote();
     const payload = { app: 'build-pc-2027', build: APP_BUILD, savedAt: new Date().toISOString(),
-      state: { build: state.build, mode: state.mode, budget: state.budget, uses: state.uses } };
+      state: { build: state.build, mode: state.mode, budget: state.budget, uses: state.uses },
+      dual: { checked: dual.checked, names: dual.names } };
     const body = { message: 'Sync build PC dal browser', branch: syncCfg.branch, content: b64enc(JSON.stringify(payload, null, 2) + '\n') };
     if (rem) body.sha = rem.sha;
     const r = await fetch(syncUrl(), { method: 'PUT', headers: { ...syncHeaders(), 'Content-Type': 'application/json' }, body: JSON.stringify(body) });

@@ -45,7 +45,7 @@ function loadState() {
   const bd = +p.get('bd'); if (bd >= 1000 && bd <= 5000) state.budget = bd;
   const u = (p.get('u') || '').split(',').filter(k => USES.some(x => x.key === k));
   if (u.length) { state.uses = u; state.profile = Object.keys(PROFILES).find(k => PROFILES[k].uses.join() === u.join()) || 'custom'; }
-  if (['riepilogo', 'builder', 'mercato'].includes(p.get('t'))) state.tab = p.get('t');
+  if (['riepilogo', 'builder', 'mercato', 'dual'].includes(p.get('t'))) state.tab = p.get('t');
 }
 
 /* ============================================================
@@ -365,6 +365,7 @@ function showTab(t, scroll = true) {
   if (t === 'builder') renderBuilder(); else $('#mobilebar').hidden = true;
   if (t === 'riepilogo') renderRiepilogo();
   if (t === 'mercato') renderMercato();
+  if (t === 'dual') renderDual();
   if (scroll) window.scrollTo({ top: 0 });
   saveState();
 }
