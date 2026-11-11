@@ -432,3 +432,32 @@ document.addEventListener('input', e => {
 
 loadState();
 showTab(state.tab, false);
+
+/* ---------- numero di build + ricerca aggiornamenti ---------- */
+const ver = { status: 'idle', latest: APP_BUILD };
+function renderVer() {
+  const s = ver.status;
+  const msg = s === 'checking' ? 'Controllo…' : s === 'ok' ? 'Sei aggiornato ✓' : s === 'new' ? `Disponibile la build ${ver.latest}` : s === 'err' ? 'Controllo non riuscito' : '';
+  $('#ver').innerHTML = `<span class="ver-n" title="Aggiornata il ${APP_BUILD_DATE}">Build <b>${APP_BUILD}</b></span>
+    ${msg ? `<span class="ver-m ${s}">${msg}</span>` : ''}
+    ${s === 'new' ? '<button data-action="reload">Aggiorna ora</button>' : `<button data-action="check-update" ${s === 'checking' ? 'disabled' : ''}>↻ Cerca aggiornamenti</button>`}`;
+}
+async function checkUpdate() {
+  ver.status = 'checking'; renderVer();
+  try {
+    const r = await fetch('version.js?t=' + Date.now(), { cache: 'no-store' });
+    const m = /APP_BUILD\s*=\s*(\d+)/.exec(await r.text());
+    if (!m) throw new Error('formato');
+    ver.latest = +m[1];
+    ver.status = ver.latest > APP_BUILD ? 'new' : 'ok';
+  } catch (e) { ver.status = 'err'; }
+  renderVer();
+}
+document.addEventListener('click', e => {
+  const t = e.target.closest('[data-action=check-update],[data-action=reload]');
+  if (!t) return;
+  if (t.dataset.action === 'reload') { saveState(); location.href = location.pathname + '?v=' + ver.latest + location.hash; }
+  else checkUpdate();
+});
+renderVer();
+checkUpdate();
