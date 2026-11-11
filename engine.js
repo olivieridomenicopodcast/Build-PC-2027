@@ -2,6 +2,9 @@
    MOTORE: compatibilità, punteggi per uso, pareri pre-programmati
    ============================================================ */
 
+/* Impostazioni dell'utente che cambiano i punteggi. ext = archivio su hard disk esterni (l'SSD resta libero). */
+const ENGINE_OPTS = { ext: true };
+
 const PS5_IDX = 37; // potenza GPU di riferimento della PS5 sulla stessa scala
 
 const clamp = (x, a = 0, b = 100) => Math.max(a, Math.min(b, x));
@@ -27,7 +30,7 @@ function computeScores(c, g, r, s, m, p, k, cs, draw) {
   const ramS = r.gb >= 64 ? 100 : r.gb >= 32 ? 90 : 60;
   const ramLong = r.gb >= 64 ? 100 : r.gb >= 32 ? 90 : 40;
   const ramGPen = r.gb >= 32 ? 0 : 7;
-  const ssdS = (s.tb >= 4 ? 100 : s.tb >= 2 ? 85 : 65) + (s.spd > 9000 ? 3 : 0);
+  const ssdS = (ENGINE_OPTS.ext ? (s.tb >= 4 ? 100 : s.tb >= 2 ? 90 : 85) : (s.tb >= 4 ? 100 : s.tb >= 2 ? 85 : 65)) + (s.spd > 9000 ? 3 : 0);
   const ssdSc = clamp(ssdS);
 
   const game = (gpuMul, wGpu, vramPen) => {
@@ -113,6 +116,9 @@ function evaluate(build, mode, budget, uses) {
   else if (g.vram < 16)
     add('warn', 'VRAM al limite', 'Con 12 GB oggi si gioca bene, ma nei prossimi anni (GTA 6 incluso) si rischia di dover abbassare le texture. I 16 GB sono la scelta più sicura.');
 
+  if (p.qual === 'Bronze' && g.tdp >= 250)
+    add('warn', 'Alimentatore Bronze con scheda potente', `Un ${p.w} W Bronze con una scheda da ${g.tdp} W lavora vicino al limite, con più calore e rumore, e la qualità varia molto da marca a marca. Con una scheda così è meglio un Gold di marca nota.`);
+
   // sbilanciamenti
   if (g.idx >= 80 && c.g < 80)
     add('warn', 'CPU un po\' troppo cauta', `${g.name} è molto più forte di ${c.name}: in Full HD la CPU può limitare i frame. In 1440p vai meglio.`);
@@ -145,7 +151,11 @@ function evaluate(build, mode, budget, uses) {
     add('warn', 'La RAM pesa un terzo', `La RAM vale il ${Math.round(ramShare * 100)}% del totale (${euro(price(r, mode))}). Crisi DRAM per la domanda di server/AI: nessun calo previsto prima del 2027 e il Black Friday non aiuta sulla RAM.`);
 
   // SSD
-  if (s.tb === 1)
+  if (ENGINE_OPTS.ext) {
+    add('tip', 'Archivio su dischi esterni', s.tb >= 2
+      ? `Archivi su HDD esterni, quindi ${s.tb} TB di SSD sono più del necessario: con 1 TB risparmieresti ~${Math.max(0, Math.round(price(s, mode) - price(getItem('ssd', 'ssd1'), mode)))} €. Tieni sull'SSD il sistema, i giochi e i progetti in corso.`
+      : 'Con l\'archivio su HDD esterni 1 TB di SSD è la scelta giusta: sistema, qualche gioco e i progetti in corso. Lavorare direttamente da un HDD esterno rallenta montaggi e sessioni audio: copia il progetto attivo sull\'SSD.');
+  } else if (s.tb === 1)
     add('tip', 'Storage', 'Un SSD da 1 TB ti fa risparmiare ~100 €: aggiungi un secondo disco più avanti per i progetti.');
   if (s.spd > 9000)
     add('info', 'Gen5: serve davvero?', 'Per giochi e montaggio leggero un Gen4 va uguale: il Gen5 scalda di più e costa di più.');

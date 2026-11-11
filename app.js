@@ -11,6 +11,7 @@ const state = {
   budget: 2500,
   profile: 'niky',
   uses: [...PROFILES.niky.uses],
+  ext: true,           // archivio su hard disk esterni: l'SSD resta libero
 };
 
 const EMOJI_TONE = { bad: '⛔', warn: '⚠️', tip: '💡', info: 'ℹ️', good: '✅' };
@@ -26,6 +27,7 @@ function encodeState() {
   p.set('m', state.mode);
   p.set('bd', state.budget);
   p.set('u', state.uses.join(','));
+  p.set('x', state.ext ? '1' : '0');
   return p.toString();
 }
 function saveState() {
@@ -45,7 +47,8 @@ function loadState() {
   const bd = +p.get('bd'); if (bd >= 1000 && bd <= 5000) state.budget = bd;
   const u = (p.get('u') || '').split(',').filter(k => USES.some(x => x.key === k));
   if (u.length) { state.uses = u; state.profile = Object.keys(PROFILES).find(k => PROFILES[k].uses.join() === u.join()) || 'custom'; }
-  if (['riepilogo', 'builder', 'mercato', 'dual'].includes(p.get('t'))) state.tab = p.get('t');
+  if (['0', '1'].includes(p.get('x'))) state.ext = p.get('x') === '1';
+  if (['riepilogo', 'builder', 'cmp', 'mercato', 'dual'].includes(p.get('t'))) state.tab = p.get('t');
 }
 
 /* ============================================================
@@ -103,7 +106,7 @@ function renderRiepilogo() {
         ${USES.map(u => scoreCell(ev.scores[u.key])).join('')}
         <td class="sc big" style="color:${ev.tier.color}">${ev.overall}</td></tr>`).join('')}</tbody>
     </table></div>
-    <p class="muted small">Voto calcolato sul profilo «Tuttofare»: Full HD, audio, video, Godot, longevità. L'IA in locale e il 4K non contano (il PDF dice: IA solo online, niente 4K).</p>`;
+    <p class="muted small">Voto calcolato sul profilo «Tuttofare»: Full HD, audio, video, Godot, longevità. L'IA in locale e il 4K non contano (il PDF dice: IA solo online, niente 4K).${ENGINE_OPTS.ext ? ' Archivio su HDD esterni: l\'SSD pesa meno.' : ''}</p>`;
 
   $('#view-riepilogo').innerHTML = `
     <div class="hero">
@@ -220,7 +223,8 @@ function renderControls() {
         </div>
         <div class="chips uses">
           ${USES.map(u => `<button class="chip-b sm ${state.uses.includes(u.key) ? 'on' : ''}" data-action="use" data-use="${u.key}" aria-pressed="${state.uses.includes(u.key)}">${u.icon} ${u.label}</button>`).join('')}
-        </div></div>
+        </div>
+        <div class="chips"><button class="chip-b sm ${state.ext ? 'on' : ''}" data-action="ext" aria-pressed="${state.ext}" title="Se archivi su hard disk esterni, l'SSD pesa meno nei voti">💽 Archivio su HDD esterni</button></div></div>
       <div class="field actions">
         <button class="btn primary" data-exp="open">⬇ Esporta</button>
         <button class="btn" data-action="copy">🔗 Copia link</button>
@@ -368,6 +372,7 @@ function showTab(t, scroll = true) {
   if (t === 'riepilogo') renderRiepilogo();
   if (t === 'mercato') renderMercato();
   if (t === 'dual') renderDual();
+  if (t === 'cmp') renderCmp();
   if (scroll) window.scrollTo({ top: 0 });
   saveState();
 }
@@ -403,6 +408,8 @@ document.addEventListener('click', e => {
       state.profile = Object.keys(PROFILES).find(p => PROFILES[p].uses.join() === USES.map(u => u.key).filter(x => state.uses.includes(x)).join() ) || 'custom';
       renderBuilder(); saveState(); break;
     }
+    case 'ext':
+      state.ext = !state.ext; ENGINE_OPTS.ext = state.ext; renderBuilder(); saveState(); break;
     case 'reset':
       state.build = { ...PRESETS.find(p => p.id === 'b9070').build }; state.mode = 'B'; state.budget = 2500; setProfile('niky');
       renderBuilder(); saveState(); break;
@@ -434,6 +441,7 @@ document.addEventListener('input', e => {
 });
 
 loadState();
+ENGINE_OPTS.ext = state.ext;
 showTab(state.tab, false);
 
 /* ---------- numero di build + ricerca aggiornamenti ---------- */
