@@ -222,6 +222,7 @@ function renderControls() {
           ${USES.map(u => `<button class="chip-b sm ${state.uses.includes(u.key) ? 'on' : ''}" data-action="use" data-use="${u.key}" aria-pressed="${state.uses.includes(u.key)}">${u.icon} ${u.label}</button>`).join('')}
         </div></div>
       <div class="field actions">
+        <button class="btn primary" data-exp="open">⬇ Esporta</button>
         <button class="btn" data-action="copy">🔗 Copia link</button>
         <button class="btn" data-action="reset">↺ Reset</button>
       </div>
@@ -277,6 +278,7 @@ function renderSide() {
         <div class="m-row small ${over ? 'over' : 'ok'}"><span>${over ? 'Sopra il budget' : 'Dentro il budget'}</span><b>${over ? '+' : '−'}${euro(Math.abs(ev.diff))}</b></div>
       </div>
       <a class="btn primary full" href="#verdetto" data-action="scroll">Vai al verdetto ↓</a>
+      <button class="btn full" data-exp="open">⬇ Esporta la build</button>
     </div>`;
   const mb = $('#mobilebar');
   mb.hidden = state.tab !== 'builder';

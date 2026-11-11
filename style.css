@@ -275,3 +275,23 @@ code { background: var(--bg); border: 1px solid var(--line); border-radius: 10px
 .diag { display: grid; gap: 8px; } .diag details { background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 0 16px; } .diag summary { padding: 13px 0; font-weight: 600; cursor: pointer; } .diag ul { margin: 0 0 14px; padding-left: 20px; color: #c9cdee; display: grid; gap: 6px; font-size: .92rem; }
 @media (max-width: 720px) { .nm-grid, .nm-grid.calc { grid-template-columns: 1fr 1fr; } .est { grid-template-columns: 1fr; } .tabs button { padding: 7px 8px; font-size: .78rem; } }
 @media (max-width: 720px) { .top-in { flex-wrap: wrap; justify-content: space-between; } .tabs { order: 3; width: 100%; justify-content: space-between; } .brand-t { display: block; } }
+
+/* esporta */
+.exp-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; } .exp { text-align: left; display: grid; gap: 4px; padding: 14px; border-radius: 14px; background: var(--bg); border: 1px solid var(--line); } .exp:hover { border-color: var(--cy); } .exp b { font-size: 1rem; } .exp span { font-size: .8rem; color: var(--mut); line-height: 1.3; }
+#print-root { display: none; }
+@media print {
+  @page { margin: 14mm; }
+  body.printing > *:not(#print-root) { display: none !important; }
+  body.printing { background: #fff !important; color: #111 !important; } body.printing #print-root { display: block !important; }
+  .pr { font: 11pt/1.45 system-ui, "Segoe UI", Arial, sans-serif; color: #111; }
+  .pr header { display: flex; justify-content: space-between; align-items: center; gap: 20px; border-bottom: 3px solid #8b5cf6; padding-bottom: 10px; }
+  .pr header small { color: #666; letter-spacing: .08em; } .pr h1 { font-size: 24pt; margin: 2px 0 4px; } .pr header p { margin: 0; color: #333; }
+  .pscore { text-align: center; border: 4px solid #8b5cf6; border-radius: 50%; width: 80px; height: 80px; display: grid; place-content: center; flex: none; } .pscore b { font-size: 24pt; line-height: 1; } .pscore span { font-size: 7.5pt; color: #555; }
+  .pr h2 { font-size: 13pt; margin: 18px 0 6px; break-after: avoid; } .pr h2 small { font-weight: 400; color: #666; font-size: 9pt; margin-left: 6px; }
+  .pt { width: 100%; border-collapse: collapse; } .pt th, .pt td { padding: 5px 8px; border-bottom: 1px solid #ddd; text-align: left; vertical-align: top; font-size: 10pt; }
+  .pt th { width: 26%; color: #444; font-weight: 600; } .pt td small { display: block; color: #777; font-size: 8.5pt; } .pt .r { text-align: right; white-space: nowrap; font-weight: 700; } .pt i { color: #b45309; font-size: 8pt; font-style: normal; }
+  .pt tr.tot th, .pt tr.tot td { border-top: 2px solid #111; font-size: 12pt; color: #111; } .pt tr.off { opacity: .5; }
+  .pb { height: 8px; background: #e5e7eb; border-radius: 4px; } .pb i { display: block; height: 100%; background: #8b5cf6; border-radius: 4px; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .pr ul { padding-left: 18px; margin: 0; } .pr li { margin-bottom: 5px; font-size: 10pt; break-inside: avoid; } .pr li.bad { color: #b91c1c; } .pr li.warn { color: #92400e; }
+  .facts { color: #444; font-size: 10pt; } .pr footer { margin-top: 20px; padding-top: 8px; border-top: 1px solid #ccc; font-size: 8.5pt; color: #777; }
+}
