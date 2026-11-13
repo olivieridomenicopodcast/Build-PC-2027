@@ -34,6 +34,9 @@ const CMP_SEEDS = [
   { id: 'c-vortex', name: 'PCSpecialist · Vortex BF 26 (9800X3D + RTX 5070 Ti) · fuori budget', price: 3099, win: true, asm: true,
     note: 'Solo come riferimento: fuori budget. IVA inclusa (2.540,16 € + IVA). Ryzen 7 9800X3D · B850 Eagle WiFi6E · Corsair Vengeance 6000 CL38 · RTX 5070 Ti 16 GB (Palit) · Kingston NV3 2 TB · Corsair CX750 · AIO LS-240 · Windows 11 Home. Garanzia Oro 3 anni. Il case non è indicato: assunto un case RGB generico.',
     build: { cpu: 'r7-9800x3d', gpu: 'rtx5070ti', mobo: 'b850-atx', ram: 'ram32', ssd: 'ssd2-nv3', psu: 'cx750', cooler: 'aio240', case: 'case-rgb' } },
+  { id: 'c-odin', name: 'Breunor ODIN (7800X3D + RTX 5070)', price: 2569.99, win: true, asm: true,
+    note: 'Tasse incluse, spedizione calcolata al pagamento. 7800X3D · RTX 5070 Ventus 2X OC 12 GB · MSI PRO B850-S WIFI6E · 32 GB DDR5-6000 · SSD 1 TB Gen4 · MSI MAG A750GLS PCIE5 750 W Gold · AIO MSI MAG Coreliquid A13 360 · Gamdias Atlas M4 · Windows 11 Pro. Inclusi: buono Steam da 40 € (fino al 13/12) e Norton 360 per 1 anno; 48 ore di test; lavorazione 5-15 giorni lavorativi. Il codice BLACK potrebbe dare uno sconto in più al checkout.',
+    build: { cpu: 'r7-7800x3d', gpu: 'rtx5070', mobo: 'b850-atx', ram: 'ram32', ssd: 'ssd1', psu: 'psu750', cooler: 'aio360', case: 'atlas-m4' } },
 ];
 /* aggiorna la nota della V8 salvata prima che si conoscesse la marca dell'alimentatore */
 cmp.cands.forEach(x => { if (x.id === 'c-v8' && /marca non indicata/.test(x.note || '')) x.note = 'Alimentatore MSI MAG A750BN 750 W Bronze · MSI MAG A13 360 mm · Antec C3'; });
