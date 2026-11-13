@@ -37,6 +37,12 @@ const CMP_SEEDS = [
   { id: 'c-odin', name: 'Breunor ODIN (7800X3D + RTX 5070)', price: 2569.99, win: true, asm: true,
     note: 'Tasse incluse, spedizione calcolata al pagamento. 7800X3D · RTX 5070 Ventus 2X OC 12 GB · MSI PRO B850-S WIFI6E · 32 GB DDR5-6000 · SSD 1 TB Gen4 · MSI MAG A750GLS PCIE5 750 W Gold · AIO MSI MAG Coreliquid A13 360 · Gamdias Atlas M4 · Windows 11 Pro. Inclusi: buono Steam da 40 € (fino al 13/12) e Norton 360 per 1 anno; 48 ore di test; lavorazione 5-15 giorni lavorativi. Il codice BLACK potrebbe dare uno sconto in più al checkout.',
     build: { cpu: 'r7-7800x3d', gpu: 'rtx5070', mobo: 'b850-atx', ram: 'ram32', ssd: 'ssd1', psu: 'psu750', cooler: 'aio360', case: 'atlas-m4' } },
+  { id: 'c-thor', name: 'Golookshop · PC Thor 2.0 (7800X3D + RX 9070 XT)', price: 2479, win: true, asm: true,
+    note: '7800X3D · RX 9070 XT 16 GB · MSI B850M WiFi 7 (mATX) · 32 GB DDR5-6000 EXPO · SSD 1 TB Gen4 (Crucial, Lexar o Kingston) · AIO 360 (MSI, Deepcool o Sama) · MSI A850GL 850 W Gold full modular · iTek Dark Cave DS Curved · Windows 11 Pro. Garanzia 24 mesi su ogni componente, spedizione inclusa e assicurata. Consegna stimata 15-20 giorni lavorativi; la scheda video può arrivare in un imballo separato, da montare. Opzioni (es. CPU) personalizzabili nel configuratore.',
+    build: { cpu: 'r7-7800x3d', gpu: 'rx9070xt', mobo: 'msi-b850m', ram: 'ram32', ssd: 'ssd1', psu: 'psu850', cooler: 'aio360', case: 'itek-dark-cave' } },
+  { id: 'c-king', name: 'Golookshop · PC King 3.0 (7800X3D + RTX 5070)', price: 2599, win: true, asm: true,
+    note: '7800X3D · RTX 5070 12 GB · MSI B850M WiFi 7 (mATX) · 32 GB DDR5-6000 · SSD 1 TB Gen4 · AIO 360 con display LCD · MSI A850GL 850 W Gold ATX 3.1 · iTek Dark Cave DS Curved · Windows 11 Pro. Garanzia 24 mesi, consegna stimata 15-20 giorni lavorativi. Le opzioni GPU sono solo Nvidia.',
+    build: { cpu: 'r7-7800x3d', gpu: 'rtx5070', mobo: 'msi-b850m', ram: 'ram32', ssd: 'ssd1', psu: 'psu850', cooler: 'aio360', case: 'itek-dark-cave' } },
 ];
 /* aggiorna la nota della V8 salvata prima che si conoscesse la marca dell'alimentatore */
 cmp.cands.forEach(x => { if (x.id === 'c-v8' && /marca non indicata/.test(x.note || '')) x.note = 'Alimentatore MSI MAG A750BN 750 W Bronze · MSI MAG A13 360 mm · Antec C3'; });
