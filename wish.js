@@ -25,8 +25,9 @@ const wishData = () => ({ items: wish.items, seeded: wish.seeded });
 const WISH_SEEDS = [
   { id: 'w-thor', title: 'PC Thor 2.0 · Ryzen 7 7800X3D, RX 9070 XT 16 GB, 32 GB DDR5-6000, 1 TB, AIO 360, 850 W Gold', shop: 'Golookshop.it', url: 'https://www.golookshop.it/shop/pc-tatanka/',
     price: 2479, status: 'fav', cmpId: 'c-thor', added: '2026-11-13',
-    note: 'Candidata migliore finora: stessa potenza della V8 a ~160 € in meno, MSI A850GL 850 W Gold, garanzia 24 mesi su ogni componente, Windows 11 Pro. ATTENZIONE: il link che mi hai dato ha scritto «pc-tatanka» e non ho potuto aprirlo, quindi controlla che la pagina sia davvero la Thor 2.0 a 2.479 €. Da chiedere su WhatsApp: tempo di consegna reale (sito: 15-20 giorni lavorativi), scheda video già montata?, modelli esatti di SSD e AIO, latenza RAM, prezzo del cambio 7800X3D → 9800X3D, fattura da privato. Trustpilot 4,9/5 su ~700 recensioni (dato tuo).' },
+    note: 'Candidata migliore finora: stessa potenza della V8 a ~160 € in meno, MSI A850GL 850 W Gold, garanzia 24 mesi su ogni componente, Windows 11 Pro. Link verificato da te: la pagina «pc-tatanka» è la Thor 2.0. Da chiedere su WhatsApp: tempo di consegna reale (sito: 15-20 giorni lavorativi), scheda video già montata?, modelli esatti di SSD e AIO, latenza RAM, prezzo del cambio 7800X3D → 9800X3D, fattura da privato. Trustpilot 4,9/5 su ~700 recensioni (dato tuo).' },
 ];
+wish.items.forEach(x => { if (x.id === 'w-thor' && /ATTENZIONE: il link/.test(x.note || '')) x.note = x.note.replace(/ ATTENZIONE: il link[^.]*\.[^.]*\.[^.]*€\./, ' Link verificato da te: la pagina «pc-tatanka» è la Thor 2.0.'); });
 WISH_SEEDS.forEach(s => { if (!wish.seeded.includes(s.id)) { wish.items.push(s); wish.seeded.push(s.id); } });
 wishSave();
 /* aggiorna la voce della V8 salvata prima della conferma dell'alimentatore (una sola volta) */
