@@ -29,7 +29,7 @@ const useBand = s => (s >= 85 ? 0 : s >= 70 ? 1 : s >= 55 ? 2 : 3);
 function computeScores(c, g, r, s, m, p, k, cs, draw) {
   const ramS = r.gb >= 64 ? 100 : r.gb >= 32 ? 90 : 60;
   const ramLong = r.gb >= 64 ? 100 : r.gb >= 32 ? 90 : 40;
-  const ramGPen = r.gb >= 32 ? 0 : 7;
+  const ramGPen = (r.gb >= 32 ? 0 : 7) + (r.slow ? 3 : 0);
   const ssdS = (ENGINE_OPTS.ext ? (s.tb >= 4 ? 100 : s.tb >= 2 ? 90 : 85) : (s.tb >= 4 ? 100 : s.tb >= 2 ? 85 : 65)) + (s.spd > 9000 ? 3 : 0);
   const ssdSc = clamp(ssdS);
 
@@ -149,6 +149,9 @@ function evaluate(build, mode, budget, uses) {
   const ramShare = price(r, mode) / total;
   if (ramShare >= 0.25)
     add('warn', 'La RAM pesa un terzo', `La RAM vale il ${Math.round(ramShare * 100)}% del totale (${euro(price(r, mode))}). Crisi DRAM per la domanda di server/AI: nessun calo previsto prima del 2027 e il Black Friday non aiuta sulla RAM.`);
+
+  if (r.slow)
+    add('warn', 'RAM lenta', 'Il kit è DDR5-5600 CL46, sotto lo standard 6000 CL30 delle altre configurazioni: nei giochi si perde qualche punto. Chiedi un kit più veloce, se costa poco.');
 
   // SSD
   if (ENGINE_OPTS.ext) {

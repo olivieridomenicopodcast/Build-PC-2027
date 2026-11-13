@@ -28,6 +28,9 @@ const CMP_SEEDS = [
   { id: 'c-v8g', name: 'Egemone V8 + alimentatore 850 W Gold', price: 2639, win: true, asm: true,
     note: 'Come la V8 (2.599 €) ma con Gigabyte UD850GM PG5 V2 (850 W Gold ATX 3.1) al posto dell\'MSI A750BN: +40 € confermati dal negozio. 7800X3D · RX 9070 XT · 32 GB · SSD 1 TB · AIO MSI 360 · Antec C3 · Windows 11 Pro.',
     build: { cpu: 'r7-7800x3d', gpu: 'rx9070xt', mobo: 'b850-atx', ram: 'ram32', ssd: 'ssd1', psu: 'psu850', cooler: 'aio360', case: 'antec' } },
+  { id: 'c-ignite', name: 'PCSpecialist · Ignite BF 26 (Ultra 7 + RTX 5070)', price: 2489, win: true, asm: true,
+    note: 'IVA inclusa (2.040,16 € + IVA). Core Ultra 7 270K Plus · B860 DS3H · RAM 5600 CL46 · RTX 5070 Dual OC 12 GB · Kingston NV3 2 TB · Corsair CX750 · AIO LS-240 · Windows 11 Home. Garanzia Oro 3 anni, consegna gratuita, ordina entro il 12 dicembre per Natale. Il case non è indicato: assunto un case RGB generico.',
+    build: { cpu: 'u7-270kp', gpu: 'rtx5070', mobo: 'b860-ds3h', ram: 'ram32-5600', ssd: 'ssd2-nv3', psu: 'cx750', cooler: 'aio240', case: 'case-rgb' } },
 ];
 /* aggiorna la nota della V8 salvata prima che si conoscesse la marca dell'alimentatore */
 cmp.cands.forEach(x => { if (x.id === 'c-v8' && /marca non indicata/.test(x.note || '')) x.note = 'Alimentatore MSI MAG A750BN 750 W Bronze · MSI MAG A13 360 mm · Antec C3'; });
@@ -93,7 +96,7 @@ function cmpNotes(r, c) {
   }
   if (rr.gb !== nr.gb) add(nr.gb > rr.gb ? 'up' : 'dn', `RAM ${nr.gb} GB contro ${rr.gb} GB.`);
   if (rs.tb !== ns.tb) add(ns.tb >= rs.tb ? 'up' : (ENGINE_OPTS.ext ? 'eq' : 'dn'), `SSD ${ns.tb} TB contro ${rs.tb} TB: ${ns.tb < rs.tb ? (ENGINE_OPTS.ext ? 'archivi su HDD esterni, quindi 1 TB basta e lasci l\'SSD libero' : 'meno spazio per progetti audio e video') : 'più spazio, che con i tuoi HDD esterni usi poco'}.`);
-  if (rp.id !== np.id) add(np.w >= rp.w && np.qual === rp.qual ? 'eq' : 'dn', `Alimentatore ${np.w} W ${np.qual} contro ${rp.w} W ${rp.qual}${np.qual === 'Bronze' && rp.qual === 'Gold' ? ': scendi di qualità e margine proprio dove conviene non risparmiare (marca da verificare)' : np.w < rp.w ? ': meno margine per cambiare scheda in futuro' : ''}.`);
+  if (rp.id !== np.id) add(np.w >= rp.w && np.qual === rp.qual ? 'eq' : 'dn', `Alimentatore ${np.w} W ${np.qual} contro ${rp.w} W ${rp.qual}${np.qual === 'Bronze' && rp.qual === 'Gold' ? ': scendi di qualità e di margine proprio dove conviene non risparmiare' : np.w < rp.w ? ': meno margine per cambiare scheda in futuro' : ''}.`);
   if (rk.id !== nk.id) add(nk.type === 'liquido' && rk.type === 'aria' ? 'eq' : 'eq', `Dissipatore ${nk.name} contro ${rk.name}${nk.type === 'liquido' && rk.type === 'aria' ? ': raffredda di più, ma con questa CPU un buon dissipatore ad aria basta e la pompa aggiunge rumore (conta se registri)' : ''}.`);
   if (rcs.id !== ncs.id) add(ncs.silent >= rcs.silent ? 'eq' : 'dn', `Case ${ncs.name} contro ${rcs.name}: ${ncs.rgb && !rcs.rgb ? 'ha l\'RGB che volevi' : ''}${ncs.silent < rcs.silent ? '; è meno silenzioso, e per le registrazioni conta' : ''}.`.replace(': ;', ':').replace('; è', ': è'));
   return out;
