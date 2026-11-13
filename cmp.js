@@ -31,6 +31,9 @@ const CMP_SEEDS = [
   { id: 'c-ignite', name: 'PCSpecialist · Ignite BF 26 (Ultra 7 + RTX 5070)', price: 2489, win: true, asm: true,
     note: 'IVA inclusa (2.040,16 € + IVA). Core Ultra 7 270K Plus · B860 DS3H · RAM 5600 CL46 · RTX 5070 Dual OC 12 GB · Kingston NV3 2 TB · Corsair CX750 · AIO LS-240 · Windows 11 Home. Garanzia Oro 3 anni, consegna gratuita, ordina entro il 12 dicembre per Natale. Il case non è indicato: assunto un case RGB generico.',
     build: { cpu: 'u7-270kp', gpu: 'rtx5070', mobo: 'b860-ds3h', ram: 'ram32-5600', ssd: 'ssd2-nv3', psu: 'cx750', cooler: 'aio240', case: 'case-rgb' } },
+  { id: 'c-vortex', name: 'PCSpecialist · Vortex BF 26 (9800X3D + RTX 5070 Ti) · fuori budget', price: 3099, win: true, asm: true,
+    note: 'Solo come riferimento: fuori budget. IVA inclusa (2.540,16 € + IVA). Ryzen 7 9800X3D · B850 Eagle WiFi6E · Corsair Vengeance 6000 CL38 · RTX 5070 Ti 16 GB (Palit) · Kingston NV3 2 TB · Corsair CX750 · AIO LS-240 · Windows 11 Home. Garanzia Oro 3 anni. Il case non è indicato: assunto un case RGB generico.',
+    build: { cpu: 'r7-9800x3d', gpu: 'rtx5070ti', mobo: 'b850-atx', ram: 'ram32', ssd: 'ssd2-nv3', psu: 'cx750', cooler: 'aio240', case: 'case-rgb' } },
 ];
 /* aggiorna la nota della V8 salvata prima che si conoscesse la marca dell'alimentatore */
 cmp.cands.forEach(x => { if (x.id === 'c-v8' && /marca non indicata/.test(x.note || '')) x.note = 'Alimentatore MSI MAG A750BN 750 W Bronze · MSI MAG A13 360 mm · Antec C3'; });
