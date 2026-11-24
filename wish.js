@@ -10,7 +10,7 @@ const WISH_STATUS = {
 const wish = {
   items: [
     { id: 'w-v8', title: 'EGEMONE V8 · Ryzen 7 7800X3D, RX 9070 XT 16 GB, 32 GB DDR5-6000', shop: 'PJ DIGITALSTORE', url: 'https://share.google/atLAizxenldQCTldB',
-      price: 2639, status: 'fav', cmpId: 'c-v8g', added: '2026-11-11', rev: 2,
+      price: 2539, status: 'fav', cmpId: 'c-v8g', added: '2026-11-11', rev: 2,
       note: 'Arriva con Windows 11 Pro e già montato. Alimentatore: MSI MAG A750BN 750 W Bronze. Da chiedere: passaggio al Gigabyte UD850GM 850 W Gold (come nella V2) e relativo supplemento.' },
   ],
   edit: null,
@@ -29,6 +29,7 @@ const WISH_SEEDS = [
 ];
 wish.items.forEach(x => { if (x.id === 'w-thor' && /ATTENZIONE: il link/.test(x.note || '')) x.note = x.note.replace(/ ATTENZIONE: il link[^.]*\.[^.]*\.[^.]*€\./, ' Link verificato da te: la pagina «pc-tatanka» è la Thor 2.0.'); });
 wish.items.forEach(x => { if (x.id === 'w-thor' && x.price === 2479 && !x.priceUpd) { x.price = 2579; x.priceUpd = true; x.note = (x.note || '') + ' Aggiornamento 24/11: il prezzo è salito da 2.479 € a 2.579 €.'; wishSave(); } });
+wish.items.forEach(x => { if (x.id === 'w-v8' && x.price === 2639 && !x.bf) { x.price = 2539; x.bf = true; x.note = (x.note || '') + ' Black Friday: V8 base 2.499 € + 39,99 € per l\'850 W Gold Gigabyte = 2.538,99 € (confermato su WhatsApp da PJ Digitalstore).'; wishSave(); } });
 WISH_SEEDS.forEach(s => { if (!wish.seeded.includes(s.id)) { wish.items.push(s); wish.seeded.push(s.id); } });
 wishSave();
 /* aggiorna la voce della V8 salvata prima della conferma dell'alimentatore (una sola volta) */

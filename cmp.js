@@ -11,7 +11,7 @@ const cmp = {
   cands: [
     { id: 'c-v2', name: 'Egemone V2 Evo', price: 2490, win: true, asm: true, note: 'Gigabyte UD850GM 850 W Gold · MSI MAG A13 360 mm · Cougar FV150 RGB',
       build: { cpu: 'r7-7800x3d', gpu: 'rtx5070', mobo: 'b850-atx', ram: 'ram32', ssd: 'ssd1', psu: 'psu850', cooler: 'aio360', case: 'fv150' } },
-    { id: 'c-v8', name: 'Egemone V8', price: 2599, win: true, asm: true, note: 'Alimentatore MSI MAG A750BN 750 W Bronze · MSI MAG A13 360 mm · Antec C3',
+    { id: 'c-v8', name: 'Egemone V8', price: 2499, win: true, asm: true, note: 'Alimentatore MSI MAG A750BN 750 W Bronze · MSI MAG A13 360 mm · Antec C3',
       build: { cpu: 'r7-7800x3d', gpu: 'rx9070xt', mobo: 'b850-atx', ram: 'ram32', ssd: 'ssd1', psu: 'psu750b', cooler: 'aio360', case: 'antec' } },
   ],
 };
@@ -25,8 +25,8 @@ const CMP_SEEDS = [
   { id: 'c-afk', name: 'AFK Store · Whale AMD (9600 + RTX 5070)', price: 2469, win: true, asm: true,
     note: 'Ryzen 5 9600 · RTX 5070 Ventus X2 OC 12 GB · 32 GB DDR5 · Adata Legend 860 1 TB · AIO MSI MAG Coreliquid A13 360 · Gigabyte B650 Eagle AX · UD750GM 750 W Gold · MasterBox 520 ARGB · Windows 11 Pro OEM + Office 2019 Pro Plus OEM.',
     build: { cpu: 'r5-9600', gpu: 'rtx5070', mobo: 'b650-eagle', ram: 'ram32', ssd: 'ssd1', psu: 'psu750', cooler: 'aio360', case: 'mb520' } },
-  { id: 'c-v8g', name: 'Egemone V8 + alimentatore 850 W Gold', price: 2639, win: true, asm: true,
-    note: 'Come la V8 (2.599 €) ma con Gigabyte UD850GM PG5 V2 (850 W Gold ATX 3.1) al posto dell\'MSI A750BN: +40 € confermati dal negozio. 7800X3D · RX 9070 XT · 32 GB · SSD 1 TB · AIO MSI 360 · Antec C3 · Windows 11 Pro.',
+  { id: 'c-v8g', name: 'Egemone V8 + alimentatore 850 W Gold', price: 2539, win: true, asm: true,
+    note: 'Come la V8 (2.599 €) ma con Gigabyte UD850GM PG5 V2 (850 W Gold ATX 3.1) al posto dell\'MSI A750BN: +39,99 € confermati dal negozio via WhatsApp. Prezzo Black Friday: 2.499 € + 39,99 € = 2.538,99 €. 7800X3D · RX 9070 XT · 32 GB · SSD 1 TB · AIO MSI 360 · Antec C3 · Windows 11 Pro.',
     build: { cpu: 'r7-7800x3d', gpu: 'rx9070xt', mobo: 'b850-atx', ram: 'ram32', ssd: 'ssd1', psu: 'psu850', cooler: 'aio360', case: 'antec' } },
   { id: 'c-ignite', name: 'PCSpecialist · Ignite BF 26 (Ultra 7 + RTX 5070)', price: 2489, win: true, asm: true,
     note: 'IVA inclusa (2.040,16 € + IVA). Core Ultra 7 270K Plus · B860 DS3H · RAM 5600 CL46 · RTX 5070 Dual OC 12 GB · Kingston NV3 2 TB · Corsair CX750 · AIO LS-240 · Windows 11 Home. Garanzia Oro 3 anni, consegna gratuita, ordina entro il 12 dicembre per Natale. Il case non è indicato: assunto un case RGB generico.',
@@ -49,6 +49,11 @@ const CMP_SEEDS = [
 ];
 /* aggiorna la nota della V8 salvata prima che si conoscesse la marca dell'alimentatore */
 cmp.cands.forEach(x => { if (x.id === 'c-v8' && /marca non indicata/.test(x.note || '')) x.note = 'Alimentatore MSI MAG A750BN 750 W Bronze · MSI MAG A13 360 mm · Antec C3'; });
+/* prezzi Black Friday della V8 (una sola volta): base 2.599 -> 2.499, con 850 W Gold 2.639 -> 2.539 (+39,99 €) */
+cmp.cands.forEach(x => {
+  if (x.id === 'c-v8' && x.price === 2599 && !x.bf) { x.price = 2499; x.bf = true; x.note = (x.note || '') + ' Prezzo Black Friday 2.499 € (era 2.599 €).'; }
+  if (x.id === 'c-v8g' && x.price === 2639 && !x.bf) { x.price = 2539; x.bf = true; x.note = (x.note || '') + ' Prezzo Black Friday: 2.499 € + 39,99 € per l\'850 W Gold = 2.538,99 €.'; }
+});
 /* aggiorna il prezzo della Thor salvato prima dell'aumento (una sola volta) */
 cmp.cands.forEach(x => { if (x.id === 'c-thor' && x.price === 2479 && !x.priceUpd) { x.price = 2579; x.priceUpd = true; x.note = (x.note || '') + ' Prezzo aumentato a 2.579 € il 24/11 (era 2.479 €).'; } });
 CMP_SEEDS.forEach(s => { if (!cmp.seeded.includes(s.id)) { cmp.cands.push(s); cmp.seeded.push(s.id); } });
