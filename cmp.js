@@ -46,6 +46,9 @@ const CMP_SEEDS = [
   { id: 'c-airflow', name: 'Golookshop · PC Airflow (9600X + RTX 5070, pronta consegna)', price: 2199, win: true, asm: true,
     note: 'PRONTA CONSEGNA. Ryzen 5 9600X · MSI RTX 5070 Gaming Trio 12 GB · MSI B850M Bro · 16 GB DDR5 (2×8) · SSD 1 TB Crucial E100 · AIO MSI A13 360 · MSI 750 W Gold modulare ATX 3.1 · Corsair 3200 + 3 ventole Deepcool · Windows 11 Pro. Garanzia 24 mesi.',
     build: { cpu: 'r5-9600x', gpu: 'rtx5070', mobo: 'msi-b850m', ram: 'ram16', ssd: 'ssd1', psu: 'psu750', cooler: 'aio360', case: 'corsair-3200' } },
+  { id: 'c-makai', name: 'Breunor MAKAI (7800X3D + RX 9070 XT)', price: 2649.99, win: true, asm: true,
+    note: 'Prezzo sito 2.649,99 € (regolare 2.899,99 €). Con il codice BLACK stimo circa 2.585 € (sulla ODIN valeva −63 €, da verificare al checkout). 7800X3D · RX 9070 XT 16 GB · B850 Wi-Fi (marca non indicata) · 32 GB DDR5-6000 · SSD 1 TB NVMe · AIO 360 · 750 W Gold (marca non indicata) · NOUA Noob XK100 · Windows 11 Pro. Il buono Steam da 40 € NON è incluso (vale per ODIN, ARES, NOW, VICTOR). Lavorazione 5-15 giorni lavorativi.',
+    build: { cpu: 'r7-7800x3d', gpu: 'rx9070xt', mobo: 'b850-atx', ram: 'ram32', ssd: 'ssd1', psu: 'psu750', cooler: 'aio360', case: 'noua-xk100' } },
 ];
 /* aggiorna la nota della V8 salvata prima che si conoscesse la marca dell'alimentatore */
 cmp.cands.forEach(x => { if (x.id === 'c-v8' && /marca non indicata/.test(x.note || '')) x.note = 'Alimentatore MSI MAG A750BN 750 W Bronze · MSI MAG A13 360 mm · Antec C3'; });
