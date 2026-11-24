@@ -1,3 +1,3 @@
 /* Numero di build: viene incrementato a ogni modifica pubblicata. */
-const APP_BUILD = 30;
+const APP_BUILD = 31;
 const APP_BUILD_DATE = '24/11/2026';

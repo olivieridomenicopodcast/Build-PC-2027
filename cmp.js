@@ -53,7 +53,7 @@ const CMP_SEEDS = [
     note: 'Black Friday -6% (regolare 2.349,99 €), IVA inclusa. Ryzen 5 7500X3D (6 core) · RX 9060 XT 16 GB · B850 Wi-Fi · 32 GB DDR5-6000 · SSD 1 TB NVMe · AIO 360 RGB · 750 W Bronze (probabilmente MSI A750BN) · MSI MAG PANO 110R PZ · Windows 11 Pro. Scelta pensata per Full HD a 165 Hz e per un PC non principale per il gioco.',
     build: { cpu: 'r5-7500x3d', gpu: 'rx9060xt', mobo: 'b850-atx', ram: 'ram32', ssd: 'ssd1', psu: 'psu750b', cooler: 'aio360', case: 'pano110r' } },
   { id: 'c-v5evo', name: 'PJ Digitalstore · Gladio V5 EVO (9600X + RX 9060 XT 16 GB)', price: 2199.99, win: true, asm: true,
-    note: 'Black Friday -8% (regolare 2.399,99 €), IVA inclusa. Ryzen 5 9600X (6 core) · RX 9060 XT 16 GB · B850 Wi-Fi · 32 GB DDR5-6000 · SSD 1 TB NVMe · AIO MSI MAG A13 360 · Gigabyte UD850GM 850 W Gold ATX 3.1 · Cougar FV150 RGB · Windows 11 Pro. Stesso prezzo della Gladio G2 ma con alimentatore migliore.',
+    note: 'Black Friday -8% (regolare 2.399,99 €), IVA inclusa. Ryzen 5 9600X (6 core) · RX 9060 XT 16 GB · B850 Wi-Fi · 32 GB DDR5-6000 · SSD 1 TB NVMe · AIO MSI MAG A13 360 · Gigabyte UD850GM 850 W Gold ATX 3.1 · Cougar FV150 RGB · Windows 11 Pro. Stesso prezzo della Gladio G2 ma con alimentatore migliore. Klarna: 3 rate, la prima alla conferma.',
     build: { cpu: 'r5-9600x', gpu: 'rx9060xt', mobo: 'b850-atx', ram: 'ram32', ssd: 'ssd1', psu: 'psu850', cooler: 'aio360', case: 'fv150' } },
 ];
 /* aggiorna la nota della V8 salvata prima che si conoscesse la marca dell'alimentatore */
