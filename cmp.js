@@ -43,6 +43,9 @@ const CMP_SEEDS = [
   { id: 'c-king', name: 'Golookshop · PC King 3.0 (7800X3D + RTX 5070)', price: 2599, win: true, asm: true,
     note: '7800X3D · RTX 5070 12 GB · MSI B850M WiFi 7 (mATX) · 32 GB DDR5-6000 · SSD 1 TB Gen4 · AIO 360 con display LCD · MSI A850GL 850 W Gold ATX 3.1 · iTek Dark Cave DS Curved · Windows 11 Pro. Garanzia 24 mesi, consegna stimata 15-20 giorni lavorativi. Le opzioni GPU sono solo Nvidia.',
     build: { cpu: 'r7-7800x3d', gpu: 'rtx5070', mobo: 'msi-b850m', ram: 'ram32', ssd: 'ssd1', psu: 'psu850', cooler: 'aio360', case: 'itek-dark-cave' } },
+  { id: 'c-airflow', name: 'Golookshop · PC Airflow (9600X + RTX 5070, pronta consegna)', price: 2199, win: true, asm: true,
+    note: 'PRONTA CONSEGNA. Ryzen 5 9600X · MSI RTX 5070 Gaming Trio 12 GB · MSI B850M Bro · 16 GB DDR5 (2×8) · SSD 1 TB Crucial E100 · AIO MSI A13 360 · MSI 750 W Gold modulare ATX 3.1 · Corsair 3200 + 3 ventole Deepcool · Windows 11 Pro. Garanzia 24 mesi.',
+    build: { cpu: 'r5-9600x', gpu: 'rtx5070', mobo: 'msi-b850m', ram: 'ram16', ssd: 'ssd1', psu: 'psu750', cooler: 'aio360', case: 'corsair-3200' } },
 ];
 /* aggiorna la nota della V8 salvata prima che si conoscesse la marca dell'alimentatore */
 cmp.cands.forEach(x => { if (x.id === 'c-v8' && /marca non indicata/.test(x.note || '')) x.note = 'Alimentatore MSI MAG A750BN 750 W Bronze · MSI MAG A13 360 mm · Antec C3'; });
