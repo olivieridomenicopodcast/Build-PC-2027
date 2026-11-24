@@ -49,6 +49,9 @@ const CMP_SEEDS = [
   { id: 'c-makai', name: 'Breunor MAKAI (7800X3D + RX 9070 XT)', price: 2649.99, win: true, asm: true,
     note: 'Prezzo sito 2.649,99 € (regolare 2.899,99 €). Con il codice BLACK stimo circa 2.585 € (sulla ODIN valeva −63 €, da verificare al checkout). 7800X3D · RX 9070 XT 16 GB · B850 Wi-Fi (marca non indicata) · 32 GB DDR5-6000 · SSD 1 TB NVMe · AIO 360 · 750 W Gold (marca non indicata) · NOUA Noob XK100 · Windows 11 Pro. Il buono Steam da 40 € NON è incluso (vale per ODIN, ARES, NOW, VICTOR). Lavorazione 5-15 giorni lavorativi.',
     build: { cpu: 'r7-7800x3d', gpu: 'rx9070xt', mobo: 'b850-atx', ram: 'ram32', ssd: 'ssd1', psu: 'psu750', cooler: 'aio360', case: 'noua-xk100' } },
+  { id: 'c-gladio', name: 'PJ Digitalstore · Gladio G2 (7500X3D + RX 9060 XT 16 GB)', price: 2199.99, win: true, asm: true,
+    note: 'Black Friday -6% (regolare 2.349,99 €), IVA inclusa. Ryzen 5 7500X3D (6 core) · RX 9060 XT 16 GB · B850 Wi-Fi · 32 GB DDR5-6000 · SSD 1 TB NVMe · AIO 360 RGB · 750 W Bronze (probabilmente MSI A750BN) · MSI MAG PANO 110R PZ · Windows 11 Pro. Scelta pensata per Full HD a 165 Hz e per un PC non principale per il gioco.',
+    build: { cpu: 'r5-7500x3d', gpu: 'rx9060xt', mobo: 'b850-atx', ram: 'ram32', ssd: 'ssd1', psu: 'psu750b', cooler: 'aio360', case: 'pano110r' } },
 ];
 /* aggiorna la nota della V8 salvata prima che si conoscesse la marca dell'alimentatore */
 cmp.cands.forEach(x => { if (x.id === 'c-v8' && /marca non indicata/.test(x.note || '')) x.note = 'Alimentatore MSI MAG A750BN 750 W Bronze · MSI MAG A13 360 mm · Antec C3'; });
