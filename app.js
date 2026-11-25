@@ -48,7 +48,7 @@ function loadState() {
   const u = (p.get('u') || '').split(',').filter(k => USES.some(x => x.key === k));
   if (u.length) { state.uses = u; state.profile = Object.keys(PROFILES).find(k => PROFILES[k].uses.join() === u.join()) || 'custom'; }
   if (['0', '1'].includes(p.get('x'))) state.ext = p.get('x') === '1';
-  if (typeof TABS !== 'undefined' && TABS[p.get('t')]) state.tab = p.get('t');
+  /* la scheda iniziale è sempre la Home: la scheda salvata non si ripristina */
 }
 
 /* ============================================================
