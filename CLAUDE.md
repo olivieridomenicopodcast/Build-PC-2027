@@ -24,3 +24,9 @@ Web app statica (HTML/CSS/JS, nessuna build). Avvio: `python3 -m http.server`.
 - Il numero di build cambia a ogni modifica (`version.js` + `?v=N` in `index.html`).
 - Pagina Confronta (build di riferimento contro configurazioni dei negozi, con valore di Windows e montaggio): `cmp.js`. Impostazione utente "archivio su HDD esterni" in `ENGINE_OPTS.ext` (engine.js).
 - Checklist di arrivo (con tasto "metti in pausa"): `check.js`.
+
+## Struttura centro operativo (build 35+)
+- Schede: Home (`pc.js`), Software/Ripristino/Giochi/Postazione (`mod1.js`), Diario/Manutenzione/Garanzie/Diagnosi/Manuale (`mod2.js`), Builder, Dual PC, Checklist, **Old** (Riepilogo, Confronta, Desideri, Prezzi).
+- `core2.js`: framework collezioni (`coll`, `COLLS`, `openForm`), cassaforte `vault` (PBKDF2+AES-GCM, campi `enc1:`). `search.js`: menu `TABS` e ricerca globale.
+- Il repo è PUBBLICO: `sync.js` cifra tutto (formato `enc1`) con la password della cassaforte; token e password solo in localStorage/memoria. Mai codici, numeri d'ordine o dati personali nel codice.
+- PWA: `manifest.webmanifest`, `sw.js` (rete prima), `pwa.js`.

@@ -3,35 +3,53 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Build PC 2027 · Riepilogo e Builder</title>
+  <title>Build PC 2027 · Centro operativo</title>
   <meta name="description" content="Riepilogo delle build PC gaming + podcast/video e un builder con pareri su prestazioni, rumore, compatibilità e budget.">
   <meta name="theme-color" content="#0a0b14">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="apple-touch-icon" href="assets/icon-192.png">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230a0b14'/%3E%3Crect x='14' y='12' width='36' height='40' rx='5' fill='none' stroke='%23ff4fd8' stroke-width='4'/%3E%3Ccircle cx='32' cy='28' r='8' fill='none' stroke='%2322d3ee' stroke-width='4'/%3E%3Crect x='22' y='42' width='20' height='4' rx='2' fill='%2334d399'/%3E%3C/svg%3E">
-  <link rel="stylesheet" href="style.css?v=34">
+  <link rel="stylesheet" href="style.css?v=35">
 </head>
 <body>
   <div class="rgb-bar" aria-hidden="true"></div>
 
   <header class="top">
     <div class="wrap top-in">
-      <a class="brand" href="#" data-tab="riepilogo" aria-label="Build PC 2027">
+      <a class="brand" href="#" data-tab="home" aria-label="Build PC 2027">
         <span class="logo" aria-hidden="true"></span>
         <span class="brand-t">BUILD<b>PC</b>2027</span>
       </a>
       <nav class="tabs" role="tablist" aria-label="Sezioni">
-        <button role="tab" data-tab="riepilogo">Riepilogo</button>
+        <button role="tab" data-tab="home">🏠 Home</button>
+        <button role="tab" data-tab="soft">Software</button>
+        <button role="tab" data-tab="docs">Garanzie</button>
+        <button role="tab" data-tab="man">Manutenzione</button>
+        <button role="tab" data-tab="diario">Diario</button>
+        <button role="tab" data-tab="giochi">Giochi</button>
         <button role="tab" data-tab="builder">Builder</button>
-        <button role="tab" data-tab="cmp">Confronta</button>
-        <button role="tab" data-tab="wish">♡ Desideri</button>
-        <button role="tab" data-tab="mercato">Prezzi &amp; mercato</button>
         <button role="tab" data-tab="dual">Dual PC</button>
         <button role="tab" data-tab="chk">Checklist</button>
+        <button role="tab" data-tab="riepilogo">Old</button>
       </nav>
-      <button class="syncbtn" data-sync="open" title="Sincronizza con GitHub">☁ Sync</button>
+      <button class="syncbtn" data-search="open" title="Cerca" aria-label="Cerca">🔍</button>
+      <button class="syncbtn" data-menu="open" title="Tutte le sezioni" aria-label="Menu">☰</button>
+      <button class="syncbtn" data-sync="open" title="Sincronizza con GitHub (cifrato)">☁ Sync</button>
     </div>
   </header>
 
   <main class="wrap">
+    <div id="oldnav" class="seg segw oldnav" hidden></div>
+    <section id="view-home" class="view" role="tabpanel"></section>
+    <section id="view-soft" class="view" role="tabpanel"></section>
+    <section id="view-restore" class="view" role="tabpanel"></section>
+    <section id="view-docs" class="view" role="tabpanel"></section>
+    <section id="view-man" class="view" role="tabpanel"></section>
+    <section id="view-diario" class="view" role="tabpanel"></section>
+    <section id="view-diag" class="view" role="tabpanel"></section>
+    <section id="view-manual" class="view" role="tabpanel"></section>
+    <section id="view-giochi" class="view" role="tabpanel"></section>
+    <section id="view-post" class="view" role="tabpanel"></section>
     <section id="view-riepilogo" class="view" role="tabpanel"></section>
     <section id="view-builder" class="view" role="tabpanel">
       <div id="b-controls"></div>
@@ -51,7 +69,7 @@
   <dialog id="sync-dlg" class="dlg">
     <form method="dialog" class="dlg-in" onsubmit="return false">
       <h3>☁ Sync con GitHub</h3>
-      <p class="muted small">Salva la tua build (componenti, prezzi, budget, usi) in un file del repo e riprendila da qualsiasi dispositivo. I dati vanno in un branch a parte (creato da solo al primo Push), senza toccare il codice. Il token resta solo in questo browser.</p>
+      <p class="muted small">Salva tutti i dati di questa app (PC, software, codici, diario, ecc.) in un file del repo e riprendili da un altro dispositivo. Il repo è pubblico, quindi i dati partono <b>cifrati</b> con la password della cassaforte (se la perdi non si recuperano). Vanno in un branch a parte. Token e password restano solo in questo browser.</p>
       <label class="field"><span>Token GitHub (Contents: read &amp; write)</span><input id="sync-token" type="password" autocomplete="off" placeholder="github_pat_…"></label>
       <label class="field"><span>Repository</span><input id="sync-repo" type="text" autocomplete="off"></label>
       <div class="two">
@@ -67,6 +85,33 @@
       </div>
     </form>
   </dialog>
+
+  <dialog id="pass-dlg" class="dlg"><form class="dlg-in" onsubmit="return false">
+    <h3>🔐 Cassaforte</h3><p id="pass-msg" class="muted small"></p>
+    <label class="field"><span>Password</span><input id="pass-a" type="password" autocomplete="off"></label>
+    <label class="field" id="pass-b-wrap"><span>Ripeti la password</span><input id="pass-b" type="password" autocomplete="off"></label>
+    <p id="pass-err" class="sync-msg err" role="alert"></p>
+    <div class="dlg-act"><button type="submit" id="pass-ok" class="btn primary">OK</button><button type="button" id="pass-cancel" class="btn">Annulla</button></div>
+  </form></dialog>
+
+  <dialog id="form-dlg" class="dlg"><form id="form-form" class="dlg-in" onsubmit="return false">
+    <h3 id="form-title"></h3><div id="form-body"></div>
+    <p id="form-err" class="sync-msg err" role="alert"></p>
+    <div class="dlg-act"><button type="submit" id="form-ok" class="btn primary">Salva</button><button type="button" id="form-cancel" class="btn">Annulla</button></div>
+  </form></dialog>
+
+  <dialog id="menu-dlg" class="dlg"><div class="dlg-in">
+    <h3>☰ Tutte le sezioni</h3>
+    <div class="menu-grid" id="menu-grid"></div>
+    <div class="dlg-act"><button class="btn" data-menu="close">Chiudi</button></div>
+  </div></dialog>
+
+  <dialog id="search-dlg" class="dlg"><div class="dlg-in">
+    <h3>🔍 Cerca nell'app</h3>
+    <label class="field"><span>Software, giochi, garanzie, diario, link…</span><input id="search-q" type="search" autocomplete="off"></label>
+    <div id="search-out" class="sres-list"></div>
+    <div class="dlg-act"><button class="btn" data-search="close">Chiudi</button></div>
+  </div></dialog>
 
   <dialog id="exp-dlg" class="dlg">
     <div class="dlg-in">
@@ -93,16 +138,22 @@
     <p>Dati dai PDF «Riepilogo della consulenza» (27 ott 2026) e «Build PC gaming + lavoro» (15 ott 2026). I punteggi sono stime orientative del builder, non benchmark: <strong>ricontrolla i prezzi prima di acquistare</strong> (sono vecchi di 2-4 settimane e il Black Friday è il 27 novembre).</p>
   </footer>
 
-  <script src="version.js?v=34"></script>
-  <script src="data.js?v=34"></script>
-  <script src="engine.js?v=34"></script>
-  <script src="charts.js?v=34"></script>
-  <script src="dual.js?v=34"></script>
-  <script src="check.js?v=34"></script>
-  <script src="cmp.js?v=34"></script>
-  <script src="wish.js?v=34"></script>
-  <script src="app.js?v=34"></script>
-  <script src="sync.js?v=34"></script>
-  <script src="export.js?v=34"></script>
+  <script src="version.js?v=35"></script>
+  <script src="data.js?v=35"></script>
+  <script src="engine.js?v=35"></script>
+  <script src="charts.js?v=35"></script>
+  <script src="dual.js?v=35"></script>
+  <script src="check.js?v=35"></script>
+  <script src="cmp.js?v=35"></script>
+  <script src="wish.js?v=35"></script>
+  <script src="core2.js?v=35"></script>
+  <script src="pc.js?v=35"></script>
+  <script src="mod1.js?v=35"></script>
+  <script src="mod2.js?v=35"></script>
+  <script src="search.js?v=35"></script>
+  <script src="app.js?v=35"></script>
+  <script src="sync.js?v=35"></script>
+  <script src="export.js?v=35"></script>
+  <script src="pwa.js?v=35"></script>
 </body>
 </html>

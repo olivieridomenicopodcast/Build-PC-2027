@@ -5,7 +5,7 @@ const $ = s => document.querySelector(s);
 const esc = s => String(s).replace(/[&<>"]/g, ch => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[ch]));
 
 const state = {
-  tab: 'riepilogo',
+  tab: 'home',
   build: { ...PRESETS.find(p => p.id === 'b9070').build },
   mode: 'A',           // prezzi reali del 27 ottobre (la fonte più recente)
   budget: 2500,
@@ -48,7 +48,7 @@ function loadState() {
   const u = (p.get('u') || '').split(',').filter(k => USES.some(x => x.key === k));
   if (u.length) { state.uses = u; state.profile = Object.keys(PROFILES).find(k => PROFILES[k].uses.join() === u.join()) || 'custom'; }
   if (['0', '1'].includes(p.get('x'))) state.ext = p.get('x') === '1';
-  if (['riepilogo', 'builder', 'cmp', 'wish', 'mercato', 'dual', 'chk'].includes(p.get('t'))) state.tab = p.get('t');
+  if (typeof TABS !== 'undefined' && TABS[p.get('t')]) state.tab = p.get('t');
 }
 
 /* ============================================================
@@ -361,20 +361,25 @@ function renderBuilder(parts = ['controls', 'pickers', 'side', 'verdict']) {
 /* ============================================================
    NAVIGAZIONE + EVENTI
    ============================================================ */
+const RENDERERS = { home: () => renderHome(), soft: () => renderSoft(), restore: () => renderRestore(), docs: () => renderDocs(), man: () => renderMan(), diario: () => renderDiario(),
+  diag: () => renderDiag(), manual: () => renderManual(), giochi: () => renderGiochi(), post: () => renderPost(), builder: () => renderBuilder(), dual: () => renderDual(), chk: () => renderChk(),
+  riepilogo: () => renderRiepilogo(), cmp: () => renderCmp(), wish: () => renderWish(), mercato: () => renderMercato() };
 function showTab(t, scroll = true) {
+  if (!RENDERERS[t]) t = 'home';
   state.tab = t;
   document.querySelectorAll('.view').forEach(v => v.classList.toggle('on', v.id === 'view-' + t));
+  const grp = OLD_TABS.includes(t) ? 'riepilogo' : t;
   document.querySelectorAll('.tabs button').forEach(b => {
-    b.classList.toggle('on', b.dataset.tab === t);
-    b.setAttribute('aria-selected', b.dataset.tab === t);
+    b.classList.toggle('on', b.dataset.tab === grp);
+    b.setAttribute('aria-selected', b.dataset.tab === grp);
   });
-  if (t === 'builder') renderBuilder(); else $('#mobilebar').hidden = true;
-  if (t === 'riepilogo') renderRiepilogo();
-  if (t === 'mercato') renderMercato();
-  if (t === 'dual') renderDual();
-  if (t === 'chk') renderChk();
-  if (t === 'cmp') renderCmp();
-  if (t === 'wish') renderWish();
+  const on = document.querySelector('.tabs button.on'); if (on && on.scrollIntoView) on.scrollIntoView({ block: 'nearest', inline: 'center' });
+  const on2 = OLD_TABS.includes(t);
+  $('#oldnav').hidden = !on2;
+  if (on2) $('#oldnav').innerHTML = OLD_TABS.map(k => `<button data-tab="${k}" class="${k === t ? 'on' : ''}">${TABS[k][1].replace('Old · ', '')}</button>`).join('');
+  if (t !== 'builder') $('#mobilebar').hidden = true;
+  try { RENDERERS[t](); } catch (err) { $('#view-' + t).innerHTML = '<div class="panel"><b>Errore nel mostrare la sezione.</b><p class="muted small">' + esc(err.message) + '</p></div>'; console.error(err); }
+  const d = document.getElementById('menu-dlg'); if (d && d.open) d.close();
   if (scroll) window.scrollTo({ top: 0 });
   saveState();
 }
