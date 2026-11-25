@@ -48,7 +48,7 @@ function loadState() {
   const u = (p.get('u') || '').split(',').filter(k => USES.some(x => x.key === k));
   if (u.length) { state.uses = u; state.profile = Object.keys(PROFILES).find(k => PROFILES[k].uses.join() === u.join()) || 'custom'; }
   if (['0', '1'].includes(p.get('x'))) state.ext = p.get('x') === '1';
-  if (['riepilogo', 'builder', 'cmp', 'wish', 'mercato', 'dual'].includes(p.get('t'))) state.tab = p.get('t');
+  if (['riepilogo', 'builder', 'cmp', 'wish', 'mercato', 'dual', 'chk'].includes(p.get('t'))) state.tab = p.get('t');
 }
 
 /* ============================================================
@@ -372,6 +372,7 @@ function showTab(t, scroll = true) {
   if (t === 'riepilogo') renderRiepilogo();
   if (t === 'mercato') renderMercato();
   if (t === 'dual') renderDual();
+  if (t === 'chk') renderChk();
   if (t === 'cmp') renderCmp();
   if (t === 'wish') renderWish();
   if (scroll) window.scrollTo({ top: 0 });

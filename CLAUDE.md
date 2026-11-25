@@ -23,3 +23,4 @@ Web app statica (HTML/CSS/JS, nessuna build). Avvio: `python3 -m http.server`.
 - Accanto, il tasto "Cerca aggiornamenti": se c'è una build più recente ricarica la versione nuova (annulla service worker e cache se presenti).
 - Il numero di build cambia a ogni modifica (`version.js` + `?v=N` in `index.html`).
 - Pagina Confronta (build di riferimento contro configurazioni dei negozi, con valore di Windows e montaggio): `cmp.js`. Impostazione utente "archivio su HDD esterni" in `ENGINE_OPTS.ext` (engine.js).
+- Checklist di arrivo (con tasto "metti in pausa"): `check.js`.
