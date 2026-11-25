@@ -25,7 +25,7 @@ function askPass(msg, confirm = false) {
     const d = document.getElementById('pass-dlg');
     document.getElementById('pass-msg').textContent = msg;
     const a = document.getElementById('pass-a'), b = document.getElementById('pass-b');
-    a.value = ''; b.value = ''; document.getElementById('pass-b-wrap').hidden = !confirm; document.getElementById('pass-err').textContent = '';
+    delete a.dataset.t;     a.value = ''; b.value = ''; document.getElementById('pass-b-wrap').hidden = !confirm; document.getElementById('pass-err').textContent = '';
     const done = v => { d.close(); cleanup(); res(v); };
     const ok = () => {
       if (confirm) { if (a.value.length < 8) return (document.getElementById('pass-err').textContent = 'Almeno 8 caratteri (meglio 4-5 parole).'); if (a.value !== b.value) return (document.getElementById('pass-err').textContent = 'Le due password non coincidono.'); }
@@ -34,7 +34,7 @@ function askPass(msg, confirm = false) {
     const cancel = () => done(null);
     const cleanup = () => { document.getElementById('pass-ok').onclick = null; document.getElementById('pass-cancel').onclick = null; d.oncancel = null; };
     document.getElementById('pass-ok').onclick = ok; document.getElementById('pass-cancel').onclick = cancel; d.oncancel = e => { e.preventDefault(); cancel(); };
-    d.showModal(); a.focus();
+    d.showModal(); a.focus(); setTimeout(() => { if (!a.dataset.t) { a.value = ""; b.value = ""; } }, 300); a.oninput = () => { a.dataset.t = "1"; };
   });
 }
 
